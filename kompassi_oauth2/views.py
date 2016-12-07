@@ -9,16 +9,19 @@ from requests_oauthlib import OAuth2Session
 
 
 def get_session(request, **kwargs):
-    return OAuth2Session(settings.KOMPASSI_OAUTH2_CLIENT_ID,
+    return OAuth2Session(
+        settings.KOMPASSI_OAUTH2_CLIENT_ID,
         redirect_uri=request.build_absolute_uri(reverse('oauth2_callback_view')),
-        scope=settings.KOMPASSI_OAUTH2_SCOPE, # XXX hardcoded scope
+        scope=settings.KOMPASSI_OAUTH2_SCOPE,  # XXX hardcoded scope
         **kwargs
     )
 
 
 class LoginView(View):
     def get(self, request):
-        authorization_url, state = get_session(request).authorization_url(settings.KOMPASSI_OAUTH2_AUTHORIZATION_URL)
+        authorization_url, state = get_session(request).authorization_url(
+            settings.KOMPASSI_OAUTH2_AUTHORIZATION_URL
+        )
         request.session['oauth_state'] = state
         request.session['oauth_next'] = request.GET.get('next', None)
         return redirect(authorization_url)
@@ -30,7 +33,8 @@ class CallbackView(View):
             return HttpResponse('OAuth2 callback accessed outside OAuth2 authorization flow', status=400)
 
         session = get_session(request, state=request.session['oauth_state'])
-        token = session.fetch_token(settings.KOMPASSI_OAUTH2_TOKEN_URL,
+        session.fetch_token(
+            settings.KOMPASSI_OAUTH2_TOKEN_URL,
             client_secret=settings.KOMPASSI_OAUTH2_CLIENT_SECRET,
             authorization_response=request.build_absolute_uri(),
         )
