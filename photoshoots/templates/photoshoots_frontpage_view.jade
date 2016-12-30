@@ -1,3 +1,16 @@
 extends base.jade
 block full_title
   | {{ settings.SHOOTTIKALA_APPLICATION_NAME }}
+block content
+  h1 {{ settings.SHOOTTIKALA_APPLICATION_NAME }}
+
+  if events.exists
+    p Seuraavilla tapahtumilla on tällä hetkellä photoshoot-ilmoittautuminen avoinna:
+    .list-group
+      for event in events
+        a.list-group-item(href='{% url "photoshoots_event_view" event.slug %}')
+          h4 {{ event.name }}
+          p {{ event.headline }}
+
+  else
+    p Yhdelläkään tapahtumalla ei ole tällä hetkellä photoshoot-ilmoittautuminen avoinna.
