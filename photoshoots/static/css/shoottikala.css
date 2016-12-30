@@ -2,11 +2,6 @@ body {
   padding-top: 75px;
 }
 
-footer {
-  background-color: #eee;
-  border-top: 1px solid #ddd;
-}
-
 footer .credit {
   padding-top: 10px;
 }
@@ -24,7 +19,4 @@ body {
 }
 #push, footer {
   height: 45px;
-}
-footer {
-  background-color: #eee;
 }
