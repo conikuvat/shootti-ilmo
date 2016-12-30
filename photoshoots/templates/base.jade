@@ -1,0 +1,62 @@
+doctype 5
+- load static from staticfiles
+- load trans from i18n
+html
+  head
+    title
+      block full_title
+        | {% if event %}{{ event.name }}: {% endif %}{% block title %}Nimetön näkymä{% endblock title %} &ndash; {{ settings.SHOOTTIKALA_APPLICATION_NAME }}
+    link(rel='stylesheet', href='{% static "css/bootstrap.min.css" %}')
+    link(rel='stylesheet', href='{% static "css/shoottikala.css" %}')
+    link(rel='icon', type='image/png', href='/static/favicon.png')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    block extra_head
+  body
+    .navbar.navbar-main.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          button(type="button", class="navbar-toggle", data-toggle="collapse", data-target="#base-navbar-collapse")
+            span(class="sr-only") Avaa valikko
+            span(class="icon-bar")
+            span(class="icon-bar")
+            span(class="icon-bar")
+
+          a.navbar-brand(href='{% url "photoshoots_frontpage_view" %}') {{ settings.SHOOTTIKALA_APPLICATION_NAME }}
+
+        //- .collapse.navbar-collapse#base-navbar-collapse
+        //-   ul.nav.navbar-nav
+        //-     if login_page
+        //-       if event.homepage_url
+        //-         li: a(href='{{ event.homepage_url }}') {{ event.name_genitive }} kotisivuille
+        //-     else
+        //-       include core_navbar_event.jade
+        //-   ul.nav.navbar-nav.navbar-right
+        //-     include core_navbar_language.jade
+        //-     if not login_page
+        //-       include core_navbar_user.jade
+
+    #wrap
+      .messages.container
+        for message in messages
+          if message.tags
+            .alert(class="alert-{{ message.tags }}") {{ message|safe }}
+          else
+            .alert {{ message|safe }}
+
+      block content_full_width
+
+      .container.content
+        block content
+          p Content goes here.
+
+      #push
+
+    footer
+      .container
+        p.credit
+          small.text-muted
+            include photoshoots_footer.html
+
+    script(src='{% static "js/jquery-1.12.4.min.js" %}')
+    script(src='{% static "js/bootstrap.min.js" %}')
+    block extra_scripts

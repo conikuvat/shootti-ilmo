@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'kompassi_oauth2',
-    'photoshoot_signup',
+    'photoshoots',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,26 +57,34 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-ROOT_URLCONF = 'photoshoot_signup.urls'
+ROOT_URLCONF = 'photoshoots.urls'
 
-WSGI_APPLICATION = 'photoshoot_signup.wsgi.application'
+WSGI_APPLICATION = 'photoshoots.wsgi.application'
 
 DATABASES = {
-    'default': env.db(default='sqlite:///photoshoot_signup.sqlite3'),
+    'default': env.db(default='sqlite:///photoshoots.sqlite3'),
 }
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'photoshoots.context_processors.photoshoots_context',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.request',
             ],
+            'loaders': [
+                ('pyjade.ext.django.Loader', (
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                ))
+            ],
+            'builtins': ['pyjade.ext.django.templatetags'],
         },
     },
 ]
@@ -99,7 +107,8 @@ LOGOUT_REDIRECT_URL = 'https://kompassi.eu/logout'
 
 AUTH_USER_MODEL = 'kompassi_oauth2.User'
 
-PHOTOSHOOTSIGNUP_DEFAULT_EVENT = env('PHOTOSHOOTSIGNUP_DEFAULT_EVENT', default='tracon11')
+SHOOTTIKALA_DEFAULT_EVENT = env('PHOTOSHOOTSIGNUP_DEFAULT_EVENT', default='frostbite2017')
+SHOOTTIKALA_APPLICATION_NAME = 'Photoshoot-ilmoittautuminen'
 
 KOMPASSI_INSTALLATION_SLUG = env('KOMPASSI_INSTALLATION_SLUG', default='turska')
 KOMPASSI_HOST = env('KOMPASSI_HOST', default='https://kompassi.eu')
