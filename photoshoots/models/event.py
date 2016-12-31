@@ -11,5 +11,10 @@ class Event(models.Model):
 
     name = models.CharField(max_length=63, verbose_name=_('name'))
 
+    homepage_url = models.CharField(max_length=255, blank=True, default='')
+    headline = models.CharField(max_length=255, blank=True, default='')
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
+
+    is_active = True

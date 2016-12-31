@@ -2,4 +2,4 @@
 {% if event and event.homepage_url and event.organization.homepage_url and event.organization.name %}
 <a href='{{ event.homepage_url }}' target='_blank'>{{ event.name_genitive }}</a> järjestää <a href='{{ event.organization.homepage_url }}' target='_blank'>{{ event.organization.name }}</a>.
 {% endif %}
- {{ SHOOTTIKALA_APPLICATION_NAME }} &copy; 2016–2017 <a href='https://github.com/conikuvat/shoottikala/blob/master/LICENSE.md'>Santtu Pajukanta</a>. <a href='{{ settings.SHOOTTIKALA_PRIVACY_POLICY_URL }}'>{% trans "Privacy policy" %}</a>.
+ <a href='https://github.com/conikuvat/shoottikala'>{{ settings.SHOOTTIKALA_APPLICATION_NAME }}</a> &copy; 2016–2017 <a href='https://github.com/conikuvat/shoottikala/blob/master/LICENSE.md'>Santtu Pajukanta</a>. <a href='{{ settings.SHOOTTIKALA_PRIVACY_POLICY_URL }}'>{% trans "Privacy policy" %}</a>.

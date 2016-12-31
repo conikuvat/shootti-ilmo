@@ -103,12 +103,13 @@ APPEND_SLASH = False
 
 LOGIN_URL = '/oauth2/login'
 LOGOUT_URL = '/logout'
-LOGOUT_REDIRECT_URL = 'https://kompassi.eu/logout'
+LOGOUT_REDIRECT_URL = env('LOGOUT_REDIRECT_URL', default='https://kompassi.eu/logout')
 
 AUTH_USER_MODEL = 'kompassi_oauth2.User'
 
 SHOOTTIKALA_DEFAULT_EVENT = env('PHOTOSHOOTSIGNUP_DEFAULT_EVENT', default='frostbite2017')
 SHOOTTIKALA_APPLICATION_NAME = 'Photoshoot-ilmoittautuminen'
+SHOOTTIKALA_PRIVACY_POLICY_URL = 'https://ry.tracon.fi/tietosuoja/rekisteriselosteet/shoottikala'
 
 KOMPASSI_INSTALLATION_SLUG = env('KOMPASSI_INSTALLATION_SLUG', default='turska')
 KOMPASSI_HOST = env('KOMPASSI_HOST', default='https://kompassi.eu')

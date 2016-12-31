@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from requests_oauthlib import OAuth2Session
 
@@ -50,3 +50,9 @@ class CallbackView(View):
             return redirect(next_url if next_url else '/')
         else:
             return HttpResponse('OAuth2 login failed', status=403)
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect(settings.LOGOUT_REDIRECT_URL)

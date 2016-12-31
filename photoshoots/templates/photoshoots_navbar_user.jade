@@ -1,0 +1,13 @@
+- load trans from i18n
+if user.is_authenticated
+  li.dropdown
+    a(href="#", class="dropdown-toggle", data-toggle="dropdown")
+      | {{ user.get_full_name }}&nbsp;
+      b.caret
+    ul.dropdown-menu
+      if user.is_staff
+        li: a(href='/admin/') Sivuston ylläpito
+        li.divider
+      li: a(href='/logout') {% trans "Log out" %}
+else
+  li: a(href="{{ settings.LOGIN_URL }}?next={{ request.get_full_path }}") Kirjaudu sisään…

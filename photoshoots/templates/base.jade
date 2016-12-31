@@ -23,17 +23,16 @@ html
 
           a.navbar-brand(href='{% url "photoshoots_frontpage_view" %}') {{ settings.SHOOTTIKALA_APPLICATION_NAME }}
 
-        //- .collapse.navbar-collapse#base-navbar-collapse
-        //-   ul.nav.navbar-nav
-        //-     if login_page
-        //-       if event.homepage_url
-        //-         li: a(href='{{ event.homepage_url }}') {{ event.name_genitive }} kotisivuille
-        //-     else
-        //-       include core_navbar_event.jade
-        //-   ul.nav.navbar-nav.navbar-right
-        //-     include core_navbar_language.jade
-        //-     if not login_page
-        //-       include core_navbar_user.jade
+        .collapse.navbar-collapse#base-navbar-collapse
+          ul.nav.navbar-nav
+            if login_page
+              if event.homepage_url
+                li: a(href='{{ event.homepage_url }}') {{ event.name_genitive }} kotisivuille
+            else
+              include photoshoots_navbar_event.jade
+          ul.nav.navbar-nav.navbar-right
+            if not login_page
+              include photoshoots_navbar_user.jade
 
     #wrap
       .messages.container

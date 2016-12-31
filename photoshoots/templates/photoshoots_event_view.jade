@@ -1,0 +1,34 @@
+extends base.jade
+block title
+  | {{ event.name }}
+block content
+  h2
+    | {{ event.name }}
+    small.text-muted.shoottikala-space-before {{ event.headline }}
+
+  if event.is_active
+    if user.is_authenticated
+      p Tervetuloa ilmoittautumaan photoshooteille {{ event.name }} -tapahtumaan! Aloita valitsemalta alta, ilmoittaudutko photoshooteille valokuvaajana vaiko cossaajana.
+
+      .row.shoottikala-space-above
+        .col-md-6
+          .list-group
+            a.list-group-item(href='{% url "photoshoots_photographer_create_view" event.slug %}')
+              h4 Olen valokuvaaja
+              p ja haluan sopia photoshooteista cossaajien kanssa
+
+        .col-md-6
+          .list-group
+            a.list-group-item(href='{% url "photoshoots_cosplayer_create_view" event.slug %}')
+              h4 Olen cossaaja
+              p ja haluan sopia photoshooteista valokuvaajien kanssa
+    else
+      p Tervetuloa ilmoittautumaan photoshooteille {{ event.name }} -tapahtumaan! Aloita kirjautumalla sisään.
+
+      .list-group.shoottikala-space-above
+        a.list-group-item(href='{{ settings.LOGIN_URL }}?next={% url "photoshoots_event_view" event.slug %}')
+          h4 Kirjaudu sisään
+          p Kompassi-tunnuksella tai Desuprofiililla…
+
+  else
+    p Tapahtuman photoshoot-ilmoittautuminen ei ole tällä hetkellä avoinna.

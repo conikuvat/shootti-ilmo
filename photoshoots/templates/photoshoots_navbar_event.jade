@@ -1,0 +1,10 @@
+if event
+  li.dropdown
+    a(href="#", class="dropdown-toggle", data-toggle="dropdown")
+      | {{ event.name }}&nbsp;
+      b.caret
+    ul.dropdown-menu
+      li: a(href='{% url "photoshoots_event_view" event.slug %}') Tapahtumasivulle
+      li: a(href='{{ settings.KOMPASSI_HOST }}/events/{{ event.slug }}') Kompassin tapahtumasivulle
+      if event.homepage_url
+        li: a(href='{{ event.homepage_url }}') Tapahtuman kotisivulle
