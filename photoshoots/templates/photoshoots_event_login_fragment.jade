@@ -1,0 +1,6 @@
+p Tervetuloa ilmoittautumaan photoshooteille {{ event.name }} -tapahtumaan! Aloita kirjautumalla sisään.
+
+.list-group.shoottikala-space-above
+  a.list-group-item(href='{{ settings.LOGIN_URL }}?next={% url "photoshoots_event_view" event.slug %}')
+    h4 Kirjaudu sisään
+    p Kompassi-tunnuksella tai Desuprofiililla…
