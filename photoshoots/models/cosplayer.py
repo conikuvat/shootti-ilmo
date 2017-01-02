@@ -34,7 +34,7 @@ class Cosplayer(models.Model):
 
     introduction = models.TextField(
         verbose_name='Esittelyteksti',
-        help_text='Esittäydy muutamalla lauseella valokuvaajille ja kerro cosplayharrastuksestasi.',
+        help_text='Esittele itsesi tai ryhmäsi muutamalla lauseella valokuvaajille ja kerro cosplayharrastuksestasi.',
     )
 
     source = models.CharField(
@@ -56,6 +56,15 @@ class Cosplayer(models.Model):
     character = models.CharField(
         max_length=255,
         verbose_name='Hahmon tai hahmojen nimet',
+    )
+
+    what_kinda_photos = models.TextField(
+        verbose_name='Millaisia kuvia haluat asustasi?',
+        help_text=(
+            'Jos sinulla on jo tässä vaiheessa ajatuksia siitä, millaisia kuvia haluat – esimerkiksi taustojen, '
+            'kuvakulmien tai visuaalisen tyylin suhteen – kerro niistä tässä.'
+        ),
+        blank=True,
     )
 
     reference_links = models.TextFields(

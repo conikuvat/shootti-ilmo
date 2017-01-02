@@ -13,8 +13,6 @@ class Photographer(models.Model):
         help_text='Millä nimellä haluat esittäytyä cossaajille?',
     )
     introduction = models.TextField(
-        blank=True,
-        default='',
         # verbose_name=_('Introduction'),
         # help_text=_('Please introduce yourself in a few sentences.'),
         verbose_name='Esittely',
@@ -23,14 +21,12 @@ class Photographer(models.Model):
 
     portfolio_links = models.TextField(
         blank=True,
-        default='',
         verbose_name='Portfolio- ja gallerialinkit',
         help_text='Jos sinulla on Internetissä portfolio tai kuvagallerioita, syötä niiden osoitteet tähän, yksi per rivi (pelkkä osoite, https://…).',
     )
 
     social_media_links = models.TextField(
         blank=True,
-        default='',
         verbose_name='Sosiaalisen median linkit',
         help_text='Jos sinulla on kuvaajaprofiili esim. Facebookissa tai Twitterissä, syötä niiden osoitteet tähän, yksi per rivi (pelkkä osoite, https://…).',
     )

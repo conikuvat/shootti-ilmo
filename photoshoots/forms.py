@@ -1,9 +1,15 @@
 from django import forms
 
 from .models import Photographer, Cosplayer
+from .utils import horizontal_form_helper
 
 
 class PhotographerForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(PhotographerForm, self).__init__(*args, **kwargs)
+
+        self.helper = horizontal_form_helper()
+
     class Meta:
         model = Photographer
         fields = (
@@ -15,5 +21,20 @@ class PhotographerForm(forms.ModelForm):
 
 
 class CosplayerForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CosplayerForm, self).__init__(*args, **kwargs)
+
+        self.helper = horizontal_form_helper()
+
     class Meta:
         model = Cosplayer
+        fields = (
+            'display_name',
+            'introduction',
+            'source',
+            'source_type',
+            'character',
+            'what_kinda_photos',
+            'reference_links',
+            'wip_links',
+        )
