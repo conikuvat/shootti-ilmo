@@ -1,7 +1,7 @@
 from django.conf import settings
 
 
-def photoshoots_context(request):
+def shoottikala_context(request):
     return dict(
         settings=settings,
     )

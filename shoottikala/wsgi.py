@@ -1,5 +1,5 @@
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "photoshoots.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "shoottikala.settings")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

@@ -4,9 +4,9 @@ from django.conf import settings
 
 
 class Conversation(models.Model):
-    event = models.ForeignKey('photoshoots.Event')
-    photographer = models.ForeignKey('photoshoots.Photographer')
-    cosplayer = models.ForeignKey('photoshoots.Cosplayer')
+    event = models.ForeignKey('shoottikala.Event')
+    photographer = models.ForeignKey('shoottikala.Photographer')
+    cosplayer = models.ForeignKey('shoottikala.Cosplayer')
 
     initiated_by = models.ForeignKey(settings.AUTH_USER_MODEL)
 

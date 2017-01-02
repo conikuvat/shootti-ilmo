@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'kompassi_oauth2',
-    'photoshoots',
+    'shoottikala',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,12 +57,12 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-ROOT_URLCONF = 'photoshoots.urls'
+ROOT_URLCONF = 'shoottikala.urls'
 
-WSGI_APPLICATION = 'photoshoots.wsgi.application'
+WSGI_APPLICATION = 'shoottikala.wsgi.application'
 
 DATABASES = {
-    'default': env.db(default='sqlite:///photoshoots.sqlite3'),
+    'default': env.db(default='sqlite:///shoottikala.sqlite3'),
 }
 
 TEMPLATES = [
@@ -71,7 +71,7 @@ TEMPLATES = [
         'DIRS': [],
         'OPTIONS': {
             'context_processors': [
-                'photoshoots.context_processors.photoshoots_context',
+                'shoottikala.context_processors.shoottikala_context',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.debug',
@@ -107,7 +107,7 @@ LOGOUT_REDIRECT_URL = env('LOGOUT_REDIRECT_URL', default='https://kompassi.eu/lo
 
 AUTH_USER_MODEL = 'kompassi_oauth2.User'
 
-SHOOTTIKALA_DEFAULT_EVENT = env('PHOTOSHOOTSIGNUP_DEFAULT_EVENT', default='frostbite2017')
+SHOOTTIKALA_DEFAULT_EVENT = env('SHOOTTIKALA_DEFAULT_EVENT', default='frostbite2017')
 SHOOTTIKALA_APPLICATION_NAME = 'Photoshoot-ilmoittautuminen'
 SHOOTTIKALA_PRIVACY_POLICY_URL = 'https://ry.tracon.fi/tietosuoja/rekisteriselosteet/shoottikala'
 

@@ -3,12 +3,12 @@ p Tervetuloa ilmoittautumaan photoshooteille {{ event.name }} -tapahtumaan! Alo
 .row.shoottikala-space-above
   .col-md-6
     .list-group
-      a.list-group-item(href='{% url "photoshoots_photographer_create_view" event.slug %}')
+      a.list-group-item(href='{% url "shoottikala_photographer_create_view" event.slug %}')
         h4 Olen valokuvaaja
         p ja haluan sopia photoshooteista cossaajien kanssa
 
   .col-md-6
     .list-group
-      a.list-group-item(href='{% url "photoshoots_cosplayer_create_view" event.slug %}')
+      a.list-group-item(href='{% url "shoottikala_cosplayer_create_view" event.slug %}')
         h4 Olen cossaaja
         p ja haluan sopia photoshooteista valokuvaajien kanssa

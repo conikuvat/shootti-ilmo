@@ -21,7 +21,7 @@ html
             span(class="icon-bar")
             span(class="icon-bar")
 
-          a.navbar-brand(href='{% url "photoshoots_frontpage_view" %}') {{ settings.SHOOTTIKALA_APPLICATION_NAME }}
+          a.navbar-brand(href='{% url "shoottikala_frontpage_view" %}') {{ settings.SHOOTTIKALA_APPLICATION_NAME }}
 
         .collapse.navbar-collapse#base-navbar-collapse
           ul.nav.navbar-nav
@@ -29,10 +29,10 @@ html
               if event.homepage_url
                 li: a(href='{{ event.homepage_url }}') {{ event.name_genitive }} kotisivuille
             else
-              include photoshoots_navbar_event.jade
+              include shoottikala_navbar_event.jade
           ul.nav.navbar-nav.navbar-right
             if not login_page
-              include photoshoots_navbar_user.jade
+              include shoottikala_navbar_user.jade
 
     #wrap
       .messages.container
@@ -54,7 +54,7 @@ html
       .container
         p.credit
           small.text-muted
-            include photoshoots_footer.html
+            include shoottikala_footer.html
 
     script(src='{% static "js/jquery-1.12.4.min.js" %}')
     script(src='{% static "js/bootstrap.min.js" %}')

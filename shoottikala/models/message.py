@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 class Message(models.Model):
-    conversation = models.ForeignKey('photoshoots.Conversation')
+    conversation = models.ForeignKey('shoottikala.Conversation')
     sender = models.ForeignKey(settings.AUTH_USER_MODEL)
     body = models.TextField()
     share_contact_details = models.BooleanField(default=False)

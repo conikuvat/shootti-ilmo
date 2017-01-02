@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 class Photographer(models.Model):
-    event = models.ForeignKey('photoshoots.Event')
+    event = models.ForeignKey('shoottikala.Event')
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     display_name = models.CharField(

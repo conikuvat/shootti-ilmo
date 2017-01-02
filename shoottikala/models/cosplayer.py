@@ -17,7 +17,7 @@ SOURCE_TYPE_CHOICES = [
 
 
 class Cosplayer(models.Model):
-    event = models.ForeignKey('photoshoots.Event')
+    event = models.ForeignKey('shoottikala.Event')
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     is_active = models.BooleanField(default=True)

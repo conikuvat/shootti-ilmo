@@ -1,7 +1,0 @@
-# flake8: noqa
-
-from .photoshoots_frontpage_view import photoshoots_frontpage_view
-from .photoshoots_event_view import photoshoots_event_view
-from .photoshoots_cosplayer_view import photoshoots_cosplayer_view
-from .photoshoots_photographer_view import photoshoots_photographer_view
-from .photoshoots_conversation_view import photoshoots_conversation_view
