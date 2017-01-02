@@ -7,11 +7,11 @@ class User(AbstractUser):
     nick = models.CharField(
         blank=True,
         max_length=1023,
-        verbose_name=_('nick name'),
+        verbose_name='Nick',
     )
 
     phone = models.CharField(
         blank=True,
         max_length=255,
-        verbose_name=_('phone number'),
+        verbose_name='Puhelinnumero',
     )

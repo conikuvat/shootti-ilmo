@@ -4,7 +4,7 @@ from ..models import Event
 
 
 def shoottikala_frontpage_view(request):
-    events = Event.objects.all()
+    events = Event.get_active_events()
 
     vars = dict(
         events=events,

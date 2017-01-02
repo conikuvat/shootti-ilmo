@@ -36,6 +36,8 @@ class Photographer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
 
+    from ..utils import check_same_user as check_privileges
+
     class Meta:
         unique_together = [
             ('event', 'user'),

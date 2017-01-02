@@ -9,6 +9,7 @@ class PhotographerForm(forms.ModelForm):
         super(PhotographerForm, self).__init__(*args, **kwargs)
 
         self.helper = horizontal_form_helper()
+        self.helper.form_tag = False
 
     class Meta:
         model = Photographer
@@ -25,6 +26,7 @@ class CosplayerForm(forms.ModelForm):
         super(CosplayerForm, self).__init__(*args, **kwargs)
 
         self.helper = horizontal_form_helper()
+        self.helper.form_tag = False
 
     class Meta:
         model = Cosplayer

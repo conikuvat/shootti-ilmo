@@ -38,6 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'crispy_forms',
+    'safespace',
+
     'kompassi_oauth2',
     'shoottikala',
 )
@@ -50,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'safespace.middleware.SafespaceMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -100,6 +104,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = mkpath('static')
 APPEND_SLASH = False
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 LOGIN_URL = '/oauth2/login'
 LOGOUT_URL = '/logout'
