@@ -67,13 +67,13 @@ class Cosplayer(models.Model):
         blank=True,
     )
 
-    reference_links = models.TextFields(
+    reference_links = models.TextField(
         verbose_name='Referenssikuvalinkit',
         help_text='Mikäli sinulla on Internetissä referenssikuvia hahmostasi, syötä tähän niiden linkit, yksi per rivi (pelkkä osoite, https://…).',
         blank=True,
     )
 
-    wip_links = models.TextFields(
+    wip_links = models.TextField(
         verbose_name='WIP-kuvalinkit',
         help_text='Mikäli sinulla on Internetissä kuvia asustasi keskeneräisenä tai valmiina, syötä tähän niiden linkit, yksi per rivi (pelkkä osoite, https://…).',
         blank=True,

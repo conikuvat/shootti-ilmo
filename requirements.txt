@@ -4,3 +4,4 @@ flake8~=3.2.1
 gunicorn~=19.6.0
 pyjade~=4.0.0
 requests-oauthlib~=0.7.0
+django-crispy-forms~=1.6.1
