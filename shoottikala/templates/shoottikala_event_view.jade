@@ -6,11 +6,13 @@ block content
     | {{ event.name }}
     small.text-muted.shoottikala-space-before {{ event.headline }}
 
-  if event.is_active
-    if user.is_authenticated
-      include shoottikala_event_welcome_fragment.jade
-    else
-      include shoottikala_event_login_fragment.jade
-
-  else
+  if show_welcome_fragment
+    include shoottikala_event_welcome_fragment.jade
+  if show_login_fragment
+    include shoottikala_event_login_fragment.jade
+  if show_photographer_fragment
+    include shoottikala_event_photographer_fragment.jade
+  if show_cosplayer_fragment
+    include shoottikala_event_cosplayer_fragment.jade
+  if show_inactive_fragment
     p Tapahtuman photoshoot-ilmoittautuminen ei ole tällä hetkellä avoinna.

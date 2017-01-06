@@ -15,3 +15,8 @@ class User(AbstractUser):
         max_length=255,
         verbose_name='Puhelinnumero',
     )
+
+    display_name = models.CharField(
+        max_length=2047,
+        blank=True,
+    )

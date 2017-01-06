@@ -1,5 +1,6 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from kompassi_oauth2.forms import UserForm
 
@@ -20,7 +21,21 @@ def shoottikala_photographer_view(request, event_slug, photographer_id=None):
     photographer.check_privileges(request.user)
 
     user_form = UserForm(instance=request.user)
-    photographer_form = initialize_form(PhotographerForm, request, instance=photographer)
+
+    initial = dict(
+        display_name=request.user.display_name,
+    )
+
+    photographer_form = initialize_form(PhotographerForm, request, instance=photographer, initial=initial)
+
+    if request.method == 'POST':
+        if photographer_form.is_valid():
+            photographer_form.save()
+
+            messages.success(request, 'Valokuvaajan tiedot tallennettiin.')
+            return redirect('shoottikala_event_view', event.slug)
+        else:
+            messages.error(request, 'Ole hyvä ja tarkista lomake.')
 
     vars = dict(
         can_edit=True,  # XXX

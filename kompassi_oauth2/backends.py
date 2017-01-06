@@ -11,6 +11,7 @@ def user_defaults_from_kompassi(kompassi_user):
         ('nick', 'nick'),
         ('first_name', 'first_name'),
         ('last_name', 'surname'),
+        ('display_name', 'display_name'),
     ])
 
 
