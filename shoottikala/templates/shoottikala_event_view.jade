@@ -12,6 +12,8 @@ block content
     include shoottikala_event_login_fragment.jade
   if show_photographer_fragment
     include shoottikala_event_photographer_fragment.jade
+    if show_cosplayer_fragment
+      p.shoottikala-space-before &nbsp;
   if show_cosplayer_fragment
     include shoottikala_event_cosplayer_fragment.jade
   if show_inactive_fragment

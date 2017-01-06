@@ -2,7 +2,7 @@ from pprint import pprint
 
 from django.shortcuts import get_object_or_404, render
 
-from ..forms import PhotographerForm
+from ..forms import CosplayerForm, PhotographerForm
 from ..models import Event, Cosplayer, Photographer
 
 
@@ -18,6 +18,8 @@ def shoottikala_event_view(request, event_slug):
             photographer_form = None
 
         own_cosplayers = Cosplayer.objects.filter(event=event, user=request.user)
+        own_cosplayers_with_forms = [(cosplayer, CosplayerForm(instance=cosplayer)) for cosplayer in own_cosplayers]
+
         cosplayers_looking = Cosplayer.objects.filter(event=event, is_active=True).exclude(user=request.user)
     else:
         photographer = None
@@ -32,6 +34,7 @@ def shoottikala_event_view(request, event_slug):
         event=event,
         is_cosplayer=is_cosplayer,
         own_cosplayers=own_cosplayers,
+        own_cosplayers_with_forms=own_cosplayers_with_forms,
         photographer_form=photographer_form,
         photographer=photographer,
         show_cosplayer_fragment=event.is_active and is_cosplayer,

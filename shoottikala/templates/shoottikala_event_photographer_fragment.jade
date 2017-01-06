@@ -6,6 +6,9 @@ p Sinulla on aktiivinen ilmoittautuminen tähän tapahtumaan valokuvaajana. Täm
   .panel-heading: strong Valokuvaajailmoituksen tiedot
   .panel-body
     - readonly photographer_form
+  .panel-footer.clearfix
+    .btn-group.pull-right
+      a.btn.btn-primary(href="{% url 'shoottikala_photographer_view' event.slug photographer.id %}") Muokkaa ilmoitusta…
 
 if cosplayers_looking.exists
   p Seuraavat cossaajat etsivät parhaillaan valokuvaajaa:

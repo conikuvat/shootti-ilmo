@@ -2,6 +2,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
+from ..privileges import AccessControlMixin
+
 
 SOURCE_TYPE_CHOICES = [
     ('anime', 'Anime (japanilainen animaatiosarja tai -elokuva)'),
@@ -16,7 +18,7 @@ SOURCE_TYPE_CHOICES = [
 ]
 
 
-class Cosplayer(models.Model):
+class Cosplayer(AccessControlMixin, models.Model):
     event = models.ForeignKey('shoottikala.Event')
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
