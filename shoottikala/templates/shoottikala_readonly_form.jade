@@ -1,4 +1,5 @@
-for field, value in fields
-  .row
-    label.control-label.col-md-2 {{ field.label }}
-    .col-md-10 {{ value }}
+.form-horizontal
+  for field, value in fields
+    .row
+      label.control-label.col-md-3 {{ field.label }}
+      .col-md-9(style='padding-top: 7px') {{ value|urlize|linebreaks }}

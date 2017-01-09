@@ -38,6 +38,28 @@ class Photographer(AccessControlMixin, models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
 
+    def __str__(self):
+        return self.display_name
+
+    @classmethod
+    def get_or_create_dummy(cls, event=None, user=None):
+        if event is None:
+            from .event import Event
+            event, unused = Event.get_or_create_dummy()
+
+        if user is None:
+            User = get_user_model()
+            user, unused = User.get_or_create_dummy()
+
+        return cls.objects.get_or_create(
+            event=event,
+            user=user,
+            defaults=dict(
+                display_name=user.display_name,
+                introduction='Such dummy, wow',
+            ),
+        )
+
     class Meta:
         unique_together = [
             ('event', 'user'),

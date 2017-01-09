@@ -25,14 +25,14 @@ if cosplayers_looking.exists
       tbody
         for cosplayer in cosplayers_looking
           tr
-            td {{ cosplayer.display_name }}
+            td: a(href="{% url 'shoottikala_cosplayer_view' event.slug cosplayer.id %}") {{ cosplayer.display_name }}
             td {{ cosplayer.character }}
             td {{ cosplayer.source }}
             td {{ cosplayer.get_source_type_display }}
     .panel-footer
-      p.text-muted {{ cosplayers.count }} cossaaja{{ cosplayers.count|pluralize:"a" }}
+      p.text-muted {{ cosplayers_looking.count }} cossaaja{{ cosplayers_looking.count|pluralize:"a" }}.
   else
     p Yksikään cossaaja ei vielä etsi valokuvaajaa tässä palvelussa. Palaa myöhemmin tarkastamaan tilanne uudelleen!
 
-  if not is_cosplayer
-    p Voit halutessasi ilmoittautua tähän tapahtumaan <a href="{% url 'shoottikala_cosplayer_create_view' event.slug %}">myös cossaajana</a>.
+if not is_cosplayer
+  p Voit halutessasi ilmoittautua tähän tapahtumaan <a href="{% url 'shoottikala_cosplayer_create_view' event.slug %}">myös cossaajana</a>.

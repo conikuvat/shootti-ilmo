@@ -23,9 +23,9 @@ if photographers.exists
       tbody
         for photographer in photographers
           tr
-            td {{ photographer.display_name }}
+            td: a(href="{% url 'shoottikala_photographer_view' event.slug photographer.id %}") {{ photographer.display_name }}
     .panel-footer
-      p.text-muted {{ photographers.count }} cossaaja{{ photographers.count|pluralize:"a" }}
+      p.text-muted {{ photographers.count }} valokuvaaja{{ photographers.count|pluralize:"a" }}
   else
     p Yksikään valokuvaaja ei vielä etsi cossaajia tässä palvelussa. Palaa myöhemmin tarkastamaan tilanne uudelleen!
 

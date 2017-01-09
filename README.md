@@ -1,81 +1,31 @@
-# Example for Kompassi OAuth2 SSO
+# New photoshoot signup system for Desucon & co.
 
-This is an example of OAuth2 authentication against the [Kompassi](/tracon/kompassi) event management system. The `kompassi_oauth2` directory contains reusable code for your Django application.
+The aim of this application is to enable cosplayers and photographers find each other in a convention and facilitate arranging cosplay photoshoots.
 
 ## Getting started
 
-First, make sure `kompassi.dev` and `ssoexample.dev` resolve to localhost via `/etc/hosts`:
-
-    127.0.0.1 localhost kompassi.dev ssoexample.dev
-
-Next, install and run development instance of [Kompassi](/tracon/kompassi) if you don't yet have one:
-
-    virtualenv venv-kompassi
-    source venv-kompassi/bin/activate
-    git clone https://github.com/tracon/kompassi.git
-    cd kompassi
+    python3 -m venv venv3-shoottikala
+    source venv3-shoottikala/bin/activate
+    git clone git@github.com:conikuvat/shoottikala
+    cd shoottikala
     pip install -r requirements.txt
-    ./manage.py setup --test
-    ./manage.py runserver 127.0.0.1:8000
-    iexplore http://kompassi.dev:8000
+    alias m='DEBUG=1 python manage.py'
 
-`./manage.py setup --test` created a test user account `mahti` with password `mahti` in your Kompassi development instance.
+    m setup
+    m import_event frostbite2017
+    m make_dummy_photographers 3
+    m make_dummy_cosplayers 5
 
-Now, in another terminal, install and run this example:
+    m runserver
+    open http://localhost:8000
 
-    source venv-kompassi/bin/activate
-    git clone https://github.com/tracon/kompassi-oauth2-example.git
-    cd kompassi-oauth2-example
-    pip install -r requirements.txt
-    ./manage.py migrate
-    ./manage.py runserver 127.0.0.1:8001
-    iexplore http://ssoexample.dev:8001
-
-When you click the "Go to protected page" link, you should be transferred to your Kompassi development instance. Log in with user `mahti` and password `mahti`, authorize the example application to receive your user info, and you should see the protected page.
-
-## Configuration
-
-```python
-AUTHENTICATION_BACKENDS = (
-    'kompassi_oauth2.backends.KompassiOAuth2AuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-KOMPASSI_OAUTH2_AUTHORIZATION_URL = 'http://kompassi.dev:8000/oauth2/authorize'
-KOMPASSI_OAUTH2_TOKEN_URL = 'http://kompassi.dev:8000/oauth2/token'
-KOMPASSI_OAUTH2_CLIENT_ID = 'kompassi_insecure_test_client_id'
-KOMPASSI_OAUTH2_CLIENT_SECRET = 'kompassi_insecure_test_client_secret'
-KOMPASSI_OAUTH2_SCOPE = ['read']
-KOMPASSI_API_V2_USER_INFO_URL = 'http://kompassi.dev:8000/api/v2/people/me'
-```
-
-## Development gotchas
-
-### "OAuth2 MUST use HTTPS"
-
-Technically it's horribly wrong to use OAuth2 over insecure HTTP. However, it's tedious to set up TLS for development. That's why we monkey patch `oauthlib.oauth2:is_secure_transport` on `DEBUG = True`. See `kompassi_oauth2_example/settings.py`.
-
-### Applications on `localhost` in different ports share the same cookies
-
-1. Run Kompassi at `localhost:8000`
-2. Run this example `localhost:8001`
-3. Try to log in
-
-Expected results: You are logged in
-
-Actual results: 500 Internal Server Error due to session not having `oauth_state` in `/oauth2/callback`
-
-Explanation: Both applications share the same set of cookies due to cookies being matched solely on the host name, not the port
-
-Workaround: Add something like this to `/etc/hosts` and use `http://kompassi.dev:8000` and `http://ssoexample.dev:8001` instead.
-
-    127.0.0.1 localhost kompassi.dev ssoexample.dev
+The `setup` script created a superuser `mahti` with password `mahti`. Use [/admin/login/](http://localhost:8000/admin/login/) instead of the login link to log in.
 
 ## License
 
     The MIT License (MIT)
 
-    Copyright (c) 2014–2015 Santtu Pajukanta
+    Copyright (c) 2016–2017 Santtu Pajukanta
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
