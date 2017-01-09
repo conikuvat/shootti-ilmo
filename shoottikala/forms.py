@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Photographer, Cosplayer, Message
+from .models import Photographer, Cosplayer
 from .utils import horizontal_form_helper
 
 
@@ -42,19 +42,19 @@ class CosplayerForm(forms.ModelForm):
         )
 
 
-class MessageForm(forms.ModelForm):
+class MessageForm(forms.Form):
+    body = forms.CharField(
+        label='Viestin teksti',
+        help_text=(
+            'Viestin mukana toimitetaan automaattisesti sähköpostiosoitteesi sekä linkki '
+            'ilmoitukseesi. Ilmoituksessasi olevia tietoja sinun ei tarvitse siis toistaa viestissäsi. '
+            'Kannattaa jo tässä vaiheessa ehdottaa sinulle sopivia aikoja photoshootille.'
+        ),
+        widget=forms.Textarea,
+    )
+
     def __init__(self, *args, **kwargs):
         super(MessageForm, self).__init__(*args, **kwargs)
 
         self.helper = horizontal_form_helper()
         self.helper.form_tag = False
-
-    class Meta:
-        model = Message
-        fields = (
-            'body',
-            'shared_contact_details',
-        )
-        widgets = dict(
-            shared_contact_details=forms.CheckboxSelectMultiple,
-        )

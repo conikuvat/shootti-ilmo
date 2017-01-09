@@ -23,7 +23,7 @@ if photographers.exists
       tbody
         for photographer in photographers
           tr
-            td: a(href="{% url 'shoottikala_conversation_view' event.slug photographer.id first_own_cosplayer.id %}") {{ photographer.display_name }}
+            td: a(href="{% url 'shoottikala_send_message_view' event.slug photographer.id first_own_cosplayer.id %}") {{ photographer.display_name }}
     .panel-footer
       p.text-muted {{ photographers.count }} valokuvaaja{{ photographers.count|pluralize:"a" }}
   else

@@ -7,7 +7,7 @@ def user_defaults_from_kompassi(kompassi_user):
     return dict((django_key, kompassi_user[kompassi_key]) for (django_key, kompassi_key) in [
         ('username', 'username'),
         ('email', 'email'),
-        ('phone', 'phone'),
+        # ('phone', 'phone'),
         ('nick', 'nick'),
         ('first_name', 'first_name'),
         ('last_name', 'surname'),

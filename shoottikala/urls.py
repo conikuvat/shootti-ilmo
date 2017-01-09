@@ -9,7 +9,7 @@ from .views import (
     shoottikala_event_view,
     shoottikala_cosplayer_view,
     shoottikala_photographer_view,
-    shoottikala_conversation_view,
+    shoottikala_send_message_view,
 )
 
 
@@ -53,9 +53,9 @@ urlpatterns = [
     ),
 
     url(
-        r'^events/(?P<event_slug>[a-z0-9-]+)/conversations/(?P<photographer_id>\d+)/(?P<cosplayer_id>\d+)/?$',
-        shoottikala_conversation_view,
-        name='shoottikala_conversation_view'
+        r'^events/(?P<event_slug>[a-z0-9-]+)/message/(?P<photographer_id>\d+)/(?P<cosplayer_id>\d+)/?$',
+        shoottikala_send_message_view,
+        name='shoottikala_send_message_view'
     ),
 
     url(r'', include(kompassi_oauth2.urls)),

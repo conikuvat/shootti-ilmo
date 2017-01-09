@@ -2,22 +2,19 @@ extends base.jade
 - load shoottikala_tags
 - load crispy_forms_tags
 block title
-  | Keskustelu
+  | Ehdota photoshootia
 block content
   h2 {{ event.name }}: Ehdota photoshootia
 
   .panel.panel-default
-    .panel-heading: strong Valokuvaajailmoitus
+    .panel-heading: strong Valokuvaaja
     .panel-body
       - readonly photographer_form
 
   .panel.panel-default
-    .panel-heading: strong Cossaajailmoitus
+    .panel-heading: strong Cossaaja
     .panel-body
       - readonly cosplayer_form
-
-  .panel.panel-default
-    .panel-heading: strong Viestit
 
   form.form-horizontal(method='POST')
     .panel.panel-default

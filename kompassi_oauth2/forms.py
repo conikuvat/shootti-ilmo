@@ -19,5 +19,5 @@ class UserForm(forms.ModelForm):
             'last_name',
             'nick',
             'email',
-            'phone',
+            # 'phone',
         )

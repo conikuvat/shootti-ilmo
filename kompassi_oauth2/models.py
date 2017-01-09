@@ -9,11 +9,11 @@ class User(AbstractUser):
         verbose_name='Nick',
     )
 
-    phone = models.CharField(
-        blank=True,
-        max_length=255,
-        verbose_name='Puhelinnumero',
-    )
+    # phone = models.CharField(
+    #     blank=True,
+    #     max_length=255,
+    #     verbose_name='Puhelinnumero',
+    # )
 
     display_name = models.CharField(
         max_length=2047,
@@ -26,7 +26,6 @@ class User(AbstractUser):
         last_name = ''.join(reversed(username)).capitalize()
         display_name = '{first_name} {last_name}'.format(**locals())
         email = '{username}@example.com'.format(**locals())
-        phone = '+358 555 1234'
 
         return cls.objects.get_or_create(
             username=username,
@@ -35,6 +34,5 @@ class User(AbstractUser):
                 last_name=last_name,
                 display_name=display_name,
                 email=email,
-                phone=phone,
             ),
         )

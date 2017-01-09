@@ -8,7 +8,6 @@ from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 
 from ...utils import log_get_or_create
-from ...models import ContactDetail
 
 
 logger = logging.getLogger(__name__)
@@ -51,18 +50,3 @@ class Command(BaseCommand):
                 user.save()
 
             log_get_or_create(logger, user, created)
-
-        order = 0
-        for attribute_name, name in [
-            ('real_name', 'Oikea nimi'),
-            ('email', 'Sähköpostiosoite'),
-            ('phone', 'Puhelinnumero'),
-        ]:
-            order += 10
-            ContactDetail.objects.get_or_create(
-                attribute_name=attribute_name,
-                defaults=dict(
-                    name=name,
-                    order=order,
-                ),
-            )

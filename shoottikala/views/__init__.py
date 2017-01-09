@@ -4,4 +4,4 @@ from .shoottikala_frontpage_view import shoottikala_frontpage_view
 from .shoottikala_event_view import shoottikala_event_view
 from .shoottikala_cosplayer_view import shoottikala_cosplayer_view
 from .shoottikala_photographer_view import shoottikala_photographer_view
-from .shoottikala_conversation_view import shoottikala_conversation_view
+from .shoottikala_send_message_view import shoottikala_send_message_view

@@ -7,7 +7,7 @@ from ..models import Event, Cosplayer, Photographer
 
 
 def shoottikala_event_view(request, event_slug):
-    event = Event.objects.get(slug=event_slug)
+    event = get_object_or_404(Event, slug=event_slug)
     is_authenticated = request.user.is_authenticated()
 
     if is_authenticated:
@@ -30,6 +30,7 @@ def shoottikala_event_view(request, event_slug):
         photographers = Photographer.objects.none()
         own_cosplayers = Cosplayer.objects.none()
         own_cosplayers_with_forms = []
+        first_own_cosplayer = None
         cosplayers_looking = Cosplayer.objects.filter(event=event, is_active=True)
 
     is_cosplayer = own_cosplayers.exists()
