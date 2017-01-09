@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from ..privileges import AccessControlMixin
 
@@ -40,6 +41,12 @@ class Photographer(AccessControlMixin, models.Model):
 
     def __str__(self):
         return self.display_name
+
+    def get_absolute_url(self):
+        return reverse('shoottikala_photographer_view', kwargs=dict(
+            event_slug=self.event.slug,
+            photographer_id=self.id,
+        ))
 
     @classmethod
     def get_or_create_dummy(cls, event=None, user=None):

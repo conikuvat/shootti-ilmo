@@ -18,15 +18,13 @@ def shoottikala_photographer_view(request, event_slug, photographer_id=None):
     else:
         photographer = Photographer(event=event, user=request.user, display_name=request.user.display_name)
 
-    photographer.check_read_privileges(request.user)
+    photographer.check_privileges(request.user)
 
     user_form = UserForm(instance=request.user)
 
     photographer_form = initialize_form(PhotographerForm, request, instance=photographer)
 
     if request.method == 'POST':
-        photographer.check_write_privileges(request.user)
-
         if photographer_form.is_valid():
             photographer_form.save()
 
@@ -36,7 +34,6 @@ def shoottikala_photographer_view(request, event_slug, photographer_id=None):
             messages.error(request, 'Ole hyvä ja tarkista lomake.')
 
     vars = dict(
-        can_edit=photographer.user_can_edit(request.user),
         event=event,
         photographer_form=photographer_form,
         photographer=photographer,

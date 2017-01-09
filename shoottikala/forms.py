@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Photographer, Cosplayer
+from .models import Photographer, Cosplayer, Message
 from .utils import horizontal_form_helper
 
 
@@ -39,4 +39,22 @@ class CosplayerForm(forms.ModelForm):
             'what_kinda_photos',
             'reference_links',
             'wip_links',
+        )
+
+
+class MessageForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(MessageForm, self).__init__(*args, **kwargs)
+
+        self.helper = horizontal_form_helper()
+        self.helper.form_tag = False
+
+    class Meta:
+        model = Message
+        fields = (
+            'body',
+            'shared_contact_details',
+        )
+        widgets = dict(
+            shared_contact_details=forms.CheckboxSelectMultiple,
         )

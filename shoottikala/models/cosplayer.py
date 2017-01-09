@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth import get_user_model
 
@@ -87,6 +88,12 @@ class Cosplayer(AccessControlMixin, models.Model):
 
     def __str__(self):
         return self.display_name
+
+    def get_absolute_url(self):
+        return reverse('shoottikala_cosplayer_view', kwargs=dict(
+            event_slug=self.event.slug,
+            cosplayer_id=self.id,
+        ))
 
     @classmethod
     def get_or_create_dummy(cls, event=None, user=None):

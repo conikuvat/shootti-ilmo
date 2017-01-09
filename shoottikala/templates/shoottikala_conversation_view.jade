@@ -1,0 +1,30 @@
+extends base.jade
+- load shoottikala_tags
+- load crispy_forms_tags
+block title
+  | Keskustelu
+block content
+  h2 {{ event.name }}: Ehdota photoshootia
+
+  .panel.panel-default
+    .panel-heading: strong Valokuvaajailmoitus
+    .panel-body
+      - readonly photographer_form
+
+  .panel.panel-default
+    .panel-heading: strong Cossaajailmoitus
+    .panel-body
+      - readonly cosplayer_form
+
+  .panel.panel-default
+    .panel-heading: strong Viestit
+
+  form.form-horizontal(method='POST')
+    .panel.panel-default
+      .panel-heading: strong Lähetä viesti
+      .panel-body
+        - crispy message_form
+      .panel-footer.clearfix
+        .btn-group.pull-right
+          a.btn.btn-default(href='{% url "shoottikala_event_view" event.slug %}') Hylkää viesti ja palaa tapahtumasivulle
+          button.btn.btn-success(type='submit') Lähetä viesti

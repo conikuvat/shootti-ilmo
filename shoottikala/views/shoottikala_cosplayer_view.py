@@ -18,15 +18,13 @@ def shoottikala_cosplayer_view(request, event_slug, cosplayer_id=None):
     else:
         cosplayer = Cosplayer(event=event, user=request.user, display_name=request.user.display_name)
 
-    cosplayer.check_read_privileges(request.user)
+    cosplayer.check_privileges(request.user)
 
     user_form = UserForm(instance=request.user)
 
     cosplayer_form = initialize_form(CosplayerForm, request, instance=cosplayer)
 
     if request.method == 'POST':
-        cosplayer.check_write_privileges(request.user)
-
         if cosplayer_form.is_valid():
             cosplayer_form.save()
 
@@ -36,7 +34,6 @@ def shoottikala_cosplayer_view(request, event_slug, cosplayer_id=None):
             messages.error(request, 'Ole hyvä ja tarkista lomake.')
 
     vars = dict(
-        can_edit=cosplayer.user_can_edit(request.user),
         event=event,
         cosplayer_form=cosplayer_form,
         cosplayer=cosplayer,

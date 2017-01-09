@@ -13,6 +13,13 @@ class Conversation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
 
+    def __str__(self):
+        return '{photographer} / {cosplayer}'.format(photographer=self.photographer, cosplayer=self.cosplayer)
+
+    def check_privileges(self, user):
+        # not even superusers may view conversations of other users
+        return user in (self.photographer.user, self.cosplayer.user)
+
     class Meta:
         unique_together = [
             ('event', 'photographer', 'cosplayer'),
