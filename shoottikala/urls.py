@@ -29,7 +29,7 @@ urlpatterns = [
     ),
 
     url(
-        r'^events/(?P<event_slug>[a-z0-9-]+)/cosplayers/(?P<cosplayer_id>\d+)/?$',
+        r'^events/(?P<event_slug>[a-z0-9-]+)/cosplayers/(?P<posting_id>\d+)/?$',
         shoottikala_cosplayer_view,
         name='shoottikala_cosplayer_view'
     ),
@@ -41,7 +41,7 @@ urlpatterns = [
     ),
 
     url(
-        r'^events/(?P<event_slug>[a-z0-9-]+)/photographers/(?P<photographer_id>\d+)/?$',
+        r'^events/(?P<event_slug>[a-z0-9-]+)/photographers/(?P<posting_id>\d+)/?$',
         shoottikala_photographer_view,
         name='shoottikala_photographer_view'
     ),

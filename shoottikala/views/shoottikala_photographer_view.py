@@ -1,43 +1,16 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-
-from kompassi_oauth2.forms import UserForm
-
-from ..models import Event, Photographer
+from ..models import Photographer
 from ..forms import PhotographerForm
-from ..utils import initialize_form
+from .generic_posting_view import make_posting_view
 
 
-@login_required
-def shoottikala_photographer_view(request, event_slug, photographer_id=None):
-    event = get_object_or_404(Event, slug=event_slug)
-
-    if photographer_id is not None:
-        photographer = get_object_or_404(Photographer, id=int(photographer_id))
-    else:
-        photographer = Photographer(event=event, user=request.user, display_name=request.user.display_name)
-
-    photographer.check_privileges(request.user)
-
-    user_form = UserForm(instance=request.user)
-
-    photographer_form = initialize_form(PhotographerForm, request, instance=photographer)
-
-    if request.method == 'POST':
-        if photographer_form.is_valid():
-            photographer_form.save()
-
-            messages.success(request, 'Valokuvaajan tiedot tallennettiin.')
-            return redirect('shoottikala_event_view', event.slug)
-        else:
-            messages.error(request, 'Ole hyvä ja tarkista lomake.')
-
-    vars = dict(
-        event=event,
-        photographer_form=photographer_form,
-        photographer=photographer,
-        user_form=user_form,
+shoottikala_photographer_view = make_posting_view(
+    Photographer,
+    PhotographerForm,
+    create_posting_title='Hae photoshoottia valokuvaajana',
+    edit_posting_title='Muokkaa valokuvaajailmoitustasi',
+    read_only_title='Valokuvaajailmoitus',
+    footer_message=(
+        'Nämä tiedot näkyvät valokuvaajia etsiville cossaajille. '
+        'Voit muokata näitä tietoja myöhemmin.'
     )
-
-    return render(request, 'shoottikala_photographer_view.jade', vars)
+)

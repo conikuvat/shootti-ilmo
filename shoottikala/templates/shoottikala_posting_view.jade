@@ -1,0 +1,48 @@
+extends base.jade
+- load shoottikala_tags
+- load crispy_forms_tags
+block title
+  if can_edit
+    if posting.id
+      | {{ edit_posting_title }}
+    else
+      | {{ create_posting_title }}
+  else
+    | {{ read_only_title }}
+block content
+  if can_edit
+    if posting.id
+      h2 {{ event.name }}: {{ edit_posting_title }}
+    else
+      h2 {{ event.name }}: {{ create_posting_title }}
+  else
+    h2 {{ event.name }}: {{ read_only_title }}
+
+  if can_edit
+    .panel.panel-default
+      .panel-heading: strong Omat tietosi
+      .panel-body
+        - readonly user_form
+      .panel-footer.clearfix
+        .btn-group.pull-right
+          a.btn.btn-default(href='{{ settings.KOMPASSI_HOST}}/profile', target='_blank') Kompassin käyttäjäprofiili…
+        p.help-block Nämä tiedot tulevat ainoastaan tapahtuman järjestäjien tietoon, ellet itse päätä jakaa niitä photoshoottien sopimisen yhteydessä cossaajien kanssa. Mikäli tiedoissasi on korjattavaa, käy korjaamassa tietosi Kompassin käyttäjäprofiiliisi ja kirjaudu sen jälkeen uudelleen sisään.
+
+  form.form-horizontal(method='POST')
+    .panel.panel-default
+      .panel-heading: strong Ilmoituksen sisältö
+      .panel-body
+        if can_edit
+          - crispy posting_form
+        else
+          - readonly posting_form
+      if can_edit
+        .panel-footer.clearfix
+          .btn-group.pull-right
+            a.btn.btn-default(href='{% url "shoottikala_event_view" event.slug %}') Hylkää muutokset ja palaa tapahtumasivulle
+            button.btn.btn-success(type='submit') Lähetä ilmoittautuminen
+          p.help-block {{ footer_message }}
+      else
+        .panel-footer.clearfix
+          .btn-group.pull-right
+            a.btn.btn-default(href='{% url "shoottikala_event_view" event.slug %}') Palaa tapahtumasivulle

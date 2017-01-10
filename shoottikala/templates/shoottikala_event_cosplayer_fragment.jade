@@ -9,7 +9,7 @@ for cosplayer, cosplayer_form in own_cosplayers_with_forms
       - readonly cosplayer_form
     .panel-footer.clearfix
       .btn-group.pull-right
-        a.btn.btn-primary(href="{% url 'shoottikala_cosplayer_view' event.slug cosplayer.id %}") Muokkaa ilmoitusta…
+        a.btn.btn-primary(href="{% url 'shoottikala_cosplayer_view' event.slug cosplayer.id %}") Muokkaa ilmoitusta
 
 if photographers.exists
   p Seuraavat valokuvaajat etsivät parhaillaan cossaajia:
@@ -25,7 +25,7 @@ if photographers.exists
           tr
             td: a(href="{% url 'shoottikala_send_message_view' event.slug photographer.id first_own_cosplayer.id %}") {{ photographer.display_name }}
     .panel-footer
-      p.text-muted {{ photographers.count }} valokuvaaja{{ photographers.count|pluralize:"a" }}
+      p.help-block {{ photographers.count }} valokuvaaja{{ photographers.count|pluralize:"a" }}
   else
     p Yksikään valokuvaaja ei vielä etsi cossaajia tässä palvelussa. Palaa myöhemmin tarkastamaan tilanne uudelleen!
 

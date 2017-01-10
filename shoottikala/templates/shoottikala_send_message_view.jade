@@ -16,7 +16,7 @@ block content
       .panel-footer.clearfix
         .btn-group.pull-right
           a.btn.btn-primary(href="{% url 'shoottikala_photographer_view' event.slug photographer.id %}") Muokkaa valokuvaajailmoitusta
-
+        p.help-block Tämä on oma ilmoituksesi. Voit tarvittaessa muokata sitä.
   .panel.panel-default
     .panel-heading: strong Cossaaja
     .panel-body
@@ -25,6 +25,7 @@ block content
       .panel-footer.clearfix
         .btn-group.pull-right
           a.btn.btn-primary(href="{% url 'shoottikala_cosplayer_view' event.slug cosplayer.id %}") Muokkaa cossaajailmoitusta
+        p.help-block Tämä on oma ilmoituksesi. Voit tarvittaessa muokata sitä.
 
   form.form-horizontal(method='POST')
     .panel.panel-default

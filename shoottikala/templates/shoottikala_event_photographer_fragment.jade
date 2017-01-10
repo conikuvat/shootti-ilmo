@@ -8,7 +8,7 @@ p Sinulla on aktiivinen ilmoittautuminen tähän tapahtumaan valokuvaajana. Täm
     - readonly photographer_form
   .panel-footer.clearfix
     .btn-group.pull-right
-      a.btn.btn-primary(href="{% url 'shoottikala_photographer_view' event.slug photographer.id %}") Muokkaa ilmoitusta…
+      a.btn.btn-primary(href="{% url 'shoottikala_photographer_view' event.slug photographer.id %}") Muokkaa ilmoitusta
 
 if cosplayers_looking.exists
   p Seuraavat cossaajat etsivät parhaillaan valokuvaajaa:
@@ -30,7 +30,7 @@ if cosplayers_looking.exists
             td {{ cosplayer.source }}
             td {{ cosplayer.get_source_type_display }}
     .panel-footer
-      p.text-muted {{ cosplayers_looking.count }} cossaaja{{ cosplayers_looking.count|pluralize:"a" }}.
+      p.help-block {{ cosplayers_looking.count }} cossaaja{{ cosplayers_looking.count|pluralize:"a" }}.
   else
     p Yksikään cossaaja ei vielä etsi valokuvaajaa tässä palvelussa. Palaa myöhemmin tarkastamaan tilanne uudelleen!
 

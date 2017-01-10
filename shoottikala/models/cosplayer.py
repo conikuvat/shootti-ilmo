@@ -98,6 +98,15 @@ class Cosplayer(AccessControlMixin, models.Model):
     def build_absolute_uri(self, request):
         return request.build_absolute_uri(self.get_absolute_url())
 
+    def user_can_view(self, user):
+        from .photographer import Photographer
+
+        return (
+            user.is_superuser or
+            self.user == user or
+            Photographer.objects.filter(event=self.event, user=self.user).exists()
+        )
+
     @classmethod
     def get_or_create_dummy(cls, event=None, user=None):
         if event is None:
