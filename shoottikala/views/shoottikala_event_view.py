@@ -37,6 +37,7 @@ def shoottikala_event_view(request, event_slug):
         cosplayers_looking=cosplayers_looking,
         event=event,
         is_cosplayer=is_cosplayer,
+        is_photographer=bool(photographer),
         first_own_cosplayer=first_own_cosplayer,
         own_cosplayers=own_cosplayers,
         own_cosplayers_with_forms=own_cosplayers_with_forms,
