@@ -9,11 +9,12 @@ def shoottikala_event_view(request, event_slug):
     is_authenticated = request.user.is_authenticated()
 
     if is_authenticated:
-        photographer = Photographer.objects.filter(event=event, user=request.user).first()
-        if photographer:
-            photographer_form = PhotographerForm(instance=photographer)
+        own_photographer = Photographer.objects.filter(event=event, user=request.user).first()
+        is_photographer = own_photographer is not None
+        if is_photographer:
+            own_photographer_form = PhotographerForm(instance=own_photographer)
         else:
-            photographer_form = None
+            own_photographer_form = None
 
         photographers = Photographer.objects.filter(event=event).exclude(user=request.user)
 
@@ -23,8 +24,8 @@ def shoottikala_event_view(request, event_slug):
 
         cosplayers_looking = Cosplayer.objects.filter(event=event, is_active=True).exclude(user=request.user)
     else:
-        photographer = None
-        photographer_form = None
+        own_photographer = None
+        own_photographer_form = None
         photographers = Photographer.objects.none()
         own_cosplayers = Cosplayer.objects.none()
         own_cosplayers_with_forms = []
@@ -37,18 +38,18 @@ def shoottikala_event_view(request, event_slug):
         cosplayers_looking=cosplayers_looking,
         event=event,
         is_cosplayer=is_cosplayer,
-        is_photographer=bool(photographer),
+        is_photographer=is_photographer,
         first_own_cosplayer=first_own_cosplayer,
         own_cosplayers=own_cosplayers,
         own_cosplayers_with_forms=own_cosplayers_with_forms,
-        photographer_form=photographer_form,
-        photographer=photographer,
+        own_photographer_form=own_photographer_form,
+        own_photographer=own_photographer,
         photographers=photographers,
         show_cosplayer_fragment=event.is_active and is_cosplayer,
         show_inactive_fragment=not event.is_active,
         show_login_fragment=event.is_active and not is_authenticated,
-        show_photographer_fragment=event.is_active and photographer,
-        show_welcome_fragment=event.is_active and is_authenticated and not (is_cosplayer or photographer),
+        show_photographer_fragment=event.is_active and is_photographer,
+        show_welcome_fragment=event.is_active and is_authenticated and not (is_cosplayer or is_photographer),
     )
 
     return render(request, 'shoottikala_event_view.jade', vars)
