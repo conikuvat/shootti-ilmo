@@ -4,19 +4,33 @@ The aim of this application is to enable cosplayers and photographers find each 
 
 ## Getting started
 
+### Docker Compose
+
+    docker-compose up
+
+In another terminal:
+
+    docker-compose exec web python manage.py import_event frostbite2017
+    docker-compose exec web python manage.py make_dummy_photographers 3
+    docker-compose exec web python manage.py make_dummy_cosplayers 5
+
+    open http://localhost:8000
+
+### Traditional way
+
     python3 -m venv venv3-shoottikala
     source venv3-shoottikala/bin/activate
     git clone git@github.com:conikuvat/shoottikala
     cd shoottikala
     pip install -r requirements.txt
-    alias m='DEBUG=1 python manage.py'
+    export DEBUG=1
 
-    m setup
-    m import_event frostbite2017
-    m make_dummy_photographers 3
-    m make_dummy_cosplayers 5
+    python manage.py setup
+    python manage.py import_event frostbite2017
+    python manage.py make_dummy_photographers 3
+    python manage.py make_dummy_cosplayers 5
 
-    m runserver
+    python manage.py runserver
     open http://localhost:8000
 
 The `setup` script created a superuser `mahti` with password `mahti`. Use [/admin/login/](http://localhost:8000/admin/login/) instead of the login link to log in.

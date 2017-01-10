@@ -1,0 +1,29 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: python manage.py docker_start
+    ports:
+      - 8000:8000
+    links:
+      - postgres
+      - memcache
+    volumes:
+      - .:/usr/src/app
+    environment:
+      DEBUG: 1
+      DATABASE_URL: psql://shoottikala:secret@postgres/shoottikala
+      CACHE_URL: memcache://memcache
+  postgres:
+    image: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: shoottikala
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: shoottikala
+  memcache:
+    image: memcached
+volumes:
+  postgres-data:
+    driver: local
