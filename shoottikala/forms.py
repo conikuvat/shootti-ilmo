@@ -33,9 +33,9 @@ class CosplayerForm(forms.ModelForm):
         fields = (
             'display_name',
             'introduction',
+            'character',
             'source',
             'source_type',
-            'character',
             'what_kinda_photos',
             'reference_links',
             'wip_links',
