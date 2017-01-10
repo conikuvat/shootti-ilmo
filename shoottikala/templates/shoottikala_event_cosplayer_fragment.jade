@@ -25,7 +25,7 @@ if photographers.exists
           tr
             td: a(href="{% url 'shoottikala_send_message_view' event.slug photographer.id first_own_cosplayer.id %}") {{ photographer.display_name }}
     .panel-footer
-      p.help-block {{ photographers.count }} valokuvaaja{{ photographers.count|pluralize:"a" }}
+      p.help-block {{ photographers.count }} valokuvaaja{{ photographers.count|pluralize:"a" }}.
   else
     p Yksikään valokuvaaja ei vielä etsi cossaajia tässä palvelussa. Palaa myöhemmin tarkastamaan tilanne uudelleen!
 
