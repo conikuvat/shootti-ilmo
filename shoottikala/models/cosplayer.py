@@ -83,6 +83,12 @@ class Cosplayer(AccessControlMixin, models.Model):
         blank=True,
     )
 
+    social_media_links = models.TextField(
+        blank=True,
+        verbose_name='Sosiaalisen median linkit',
+        help_text='Jos sinulla on cosplay-profiili esim. Facebookissa tai Twitterissä, syötä niiden osoitteet tähän, yksi per rivi (pelkkä osoite, https://…).',
+    )
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
 

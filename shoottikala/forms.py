@@ -39,6 +39,7 @@ class CosplayerForm(forms.ModelForm):
             'what_kinda_photos',
             'reference_links',
             'wip_links',
+            'social_media_links',
         )
 
 
