@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from django.shortcuts import get_object_or_404, render
 
 from ..forms import CosplayerForm, PhotographerForm
@@ -51,7 +49,5 @@ def shoottikala_event_view(request, event_slug):
         show_photographer_fragment=event.is_active and photographer,
         show_welcome_fragment=event.is_active and is_authenticated and not (is_cosplayer or photographer),
     )
-
-    pprint(vars)
 
     return render(request, 'shoottikala_event_view.jade', vars)

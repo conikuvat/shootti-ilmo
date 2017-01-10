@@ -43,7 +43,7 @@ class CosplayerForm(forms.ModelForm):
 
 
 class MessageForm(forms.Form):
-    body = forms.CharField(
+    message_text = forms.CharField(
         label='Viestin teksti',
         help_text=(
             'Viestin mukana toimitetaan automaattisesti sähköpostiosoitteesi sekä linkki '

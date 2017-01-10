@@ -24,8 +24,8 @@ class User(AbstractUser):
     def get_or_create_dummy(cls, username='dummy'):
         first_name = username.capitalize()
         last_name = ''.join(reversed(username)).capitalize()
-        display_name = '{first_name} {last_name}'.format(**locals())
-        email = '{username}@example.com'.format(**locals())
+        display_name = f'{first_name} {last_name}'
+        email = f'{username}@example.com'
 
         return cls.objects.get_or_create(
             username=username,

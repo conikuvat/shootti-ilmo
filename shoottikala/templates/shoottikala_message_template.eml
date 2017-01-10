@@ -1,0 +1,21 @@
+Olet saanut viestin photoshoot-ilmoittautumisjärjestelmässä. Voit vastata lähettäjälle suoraan vastaamalla tähän sähköpostiviestiin.
+
+Lähettäjä:
+{{ sender.display_name }}
+
+Lähettäjän sähköpostiosoite:
+{{ sender.user.email }}
+
+Lähettäjän ilmoitus:
+{{ sender_url }}
+
+Vastauksena ilmoitukseen:
+{{ recipient_url }}
+
+Viesti:
+
+{{ message_text }}
+
+
+--
+{{ settings.DEFAULT_FROM_EMAIL }}

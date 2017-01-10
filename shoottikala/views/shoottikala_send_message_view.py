@@ -33,10 +33,12 @@ def shoottikala_send_message_view(request, event_slug, photographer_id, cosplaye
     if request.method == 'POST':
         if message_form.is_valid():
             message_context = dict(
-                cosplayer=cosplayer,
-                photographer=photographer,
                 sender=sender,
+                sender_url=sender.build_absolute_uri(request),
+                recipient=recipient,
+                recipient_url=recipient.build_absolute_uri(request),
                 message_text=message_form.cleaned_data['message_text'],
+                settings=settings,
             )
 
             body = render_to_string('shoottikala_message_template.eml', message_context, request=request)

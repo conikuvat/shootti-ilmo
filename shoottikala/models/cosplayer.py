@@ -95,6 +95,9 @@ class Cosplayer(AccessControlMixin, models.Model):
             cosplayer_id=self.id,
         ))
 
+    def build_absolute_uri(self, request):
+        return request.build_absolute_uri(self.get_absolute_url())
+
     @classmethod
     def get_or_create_dummy(cls, event=None, user=None):
         if event is None:
