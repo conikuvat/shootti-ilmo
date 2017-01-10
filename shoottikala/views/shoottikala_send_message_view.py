@@ -63,7 +63,9 @@ def shoottikala_send_message_view(request, event_slug, photographer_id, cosplaye
     vars = dict(
         event=event,
         photographer=photographer,
+        can_edit_photographer=photographer.user_can_edit(request.user),
         cosplayer=cosplayer,
+        can_edit_cosplayer=cosplayer.user_can_edit(request.user),
         photographer_form=photographer_form,
         cosplayer_form=cosplayer_form,
         message_form=message_form,

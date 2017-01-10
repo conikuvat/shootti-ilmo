@@ -6,15 +6,25 @@ block title
 block content
   h2 {{ event.name }}: Ehdota photoshootia
 
+  p Tutustu valitsemasi ilmoituksen sisältöön ja tarkista samalla oman ilmoituksesi sisältö! Voit lähettää viestin photoshootin sopimiseksi alla olevalla lomakkeella.
+
   .panel.panel-default
     .panel-heading: strong Valokuvaaja
     .panel-body
       - readonly photographer_form
+    if can_edit_photographer
+      .panel-footer.clearfix
+        .btn-group.pull-right
+          a.btn.btn-primary(href="{% url 'shoottikala_photographer_view' event.slug photographer.id %}") Muokkaa valokuvaajailmoitusta
 
   .panel.panel-default
     .panel-heading: strong Cossaaja
     .panel-body
       - readonly cosplayer_form
+    if can_edit_cosplayer
+      .panel-footer.clearfix
+        .btn-group.pull-right
+          a.btn.btn-primary(href="{% url 'shoottikala_cosplayer_view' event.slug cosplayer.id %}") Muokkaa cossaajailmoitusta
 
   form.form-horizontal(method='POST')
     .panel.panel-default
