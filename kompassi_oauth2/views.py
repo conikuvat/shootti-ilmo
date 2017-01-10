@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 from requests_oauthlib import OAuth2Session
 
@@ -47,6 +48,7 @@ class CallbackView(View):
         user = authenticate(oauth2_session=session)
         if user is not None and user.is_active:
             login(request, user)
+            messages.success(request, 'Olet nyt kirjautunut sisään.')
             return redirect(next_url if next_url else '/')
         else:
             return HttpResponse('OAuth2 login failed', status=403)
