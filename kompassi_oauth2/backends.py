@@ -3,15 +3,16 @@ from django.conf import settings
 from .models import User
 
 
-def user_defaults_from_kompassi(kompassi_user):
-    return dict((django_key, kompassi_user[kompassi_key]) for (django_key, kompassi_key) in [
-        ('username', 'username'),
-        ('email', 'email'),
-        # ('phone', 'phone'),
-        ('nick', 'nick'),
-        ('first_name', 'first_name'),
-        ('last_name', 'surname'),
-        ('display_name', 'display_name'),
+def user_attrs_from_kompassi(kompassi_user):
+    return dict((django_key, accessor_func(kompassi_user)) for (django_key, accessor_func) in [
+        # ('username', lambda u: u['username']),
+        ('email', lambda u: u['email']),
+        ('first_name', lambda u: u['first_name']),
+        ('last_name', lambda u: u['surname']),
+        ('nick', lambda u: u['nick']),
+        ('display_name', lambda u: u['display_name']),
+        ('is_superuser', lambda u: settings.KOMPASSI_ADMIN_GROUP in u['groups']),
+        ('is_staff', lambda u: settings.KOMPASSI_ADMIN_GROUP in u['groups']),
     ])
 
 
@@ -24,11 +25,9 @@ class KompassiOAuth2AuthenticationBackend(object):
         response = oauth2_session.get(settings.KOMPASSI_API_V2_USER_INFO_URL)
         response.raise_for_status()
         kompassi_user = response.json()
+        user_attrs = user_attrs_from_kompassi(kompassi_user)
 
-        user, created = User.objects.get_or_create(
-            username=kompassi_user['username'],
-            defaults=user_defaults_from_kompassi(kompassi_user)
-        )
+        user, created = User.objects.update_or_create(username=kompassi_user['username'], defaults=user_attrs)
 
         return user
 
