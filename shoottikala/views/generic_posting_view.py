@@ -6,6 +6,7 @@ from kompassi_oauth2.forms import UserForm
 
 from ..models import Event
 from ..utils import initialize_form
+from ..exceptions import InvalidAction
 
 
 def make_posting_view(
@@ -51,17 +52,40 @@ def make_posting_view(
 
         if request.method == 'POST':
             posting.check_write_privileges(request.user)
+            action = request.POST.get('action')
 
-            if posting_form.is_valid():
-                posting_form.save()
+            if action == 'save':
+                if posting_form.is_valid():
+                    posting_form.save()
 
-                messages.success(request, 'Ilmoitus on tallennettu.')
+                    messages.success(request, 'Ilmoitus on tallennettu.')
+                    return redirect('shoottikala_event_view', event.slug)
+                else:
+                    messages.error(request, 'Ole hyvä ja tarkista lomake.')
+            elif action == 'hide':
+                if posting.is_active:
+                    posting.is_active = False
+                    posting.save()
+                    messages.success(request, 'Ilmoitus on nyt piilotettu.')
+                else:
+                    messages.error(request, 'Ilmoitus on jo piilossa.')
+
+                return redirect('shoottikala_event_view', event.slug)
+            elif action == 'restore':
+                if not posting.is_active:
+                    posting.is_active = True
+                    posting.save()
+                    messages.success(request, 'Ilmoitus on nyt palautettu.')
+                else:
+                    messages.error(request, 'Ilmoitus on jo näkyvissä.')
+
                 return redirect('shoottikala_event_view', event.slug)
             else:
-                messages.error(request, 'Ole hyvä ja tarkista lomake.')
+                raise InvalidAction(action)
 
         vars = dict(
-            can_edit=posting.user == request.user,
+            can_edit=posting.user == request.user and posting.is_active,
+            can_restore=posting.user == request.user and not posting.is_active,
             event=event,
             posting_form=posting_form,
             posting=posting,

@@ -18,6 +18,10 @@ block content
   else
     h2 {{ event.name }}: {{ read_only_title }}
 
+  if not posting.is_active
+    .alert.alert-warning
+      p Tämä ilmoitus on tällä hetkellä piilotettu.
+
   if can_edit
     .panel.panel-default
       .panel-heading: strong Omat tietosi
@@ -29,6 +33,7 @@ block content
         p.help-block Nämä tiedot tulevat ainoastaan tapahtuman järjestäjien tietoon, ellet itse päätä jakaa niitä photoshoottien sopimisen yhteydessä cossaajien kanssa. Mikäli tiedoissasi on korjattavaa, käy korjaamassa tietosi Kompassin käyttäjäprofiiliisi ja kirjaudu sen jälkeen uudelleen sisään.
 
   form.form-horizontal(method='POST')
+    {% csrf_token %}
     .panel.panel-default
       .panel-heading: strong Ilmoituksen sisältö
       .panel-body
@@ -40,9 +45,17 @@ block content
         .panel-footer.clearfix
           .btn-group.pull-right
             a.btn.btn-default(href='{% url "shoottikala_event_view" event.slug %}') Hylkää muutokset ja palaa tapahtumasivulle
-            button.btn.btn-success(type='submit') Lähetä ilmoittautuminen
+            if posting.id
+              button.btn.btn-danger(type='submit', name='action', value='hide') Piilota ilmoitus
+              button.btn.btn-success(type='submit', name='action', value='save') Tallenna muutokset
+            else
+              button.btn.btn-success(type='submit', name='action', value='save') Lähetä ilmoitus
           p.help-block {{ footer_message }}
       else
         .panel-footer.clearfix
           .btn-group.pull-right
+            if can_restore
+              button.btn.btn-primary(type='submit', name='action', value='restore') Palauta ilmoitus näkyviin
             a.btn.btn-default(href='{% url "shoottikala_event_view" event.slug %}') Palaa tapahtumasivulle
+          if can_restore
+            p.help-block Tämä ilmoitus on tällä hetkellä piilotettu. Voit halutessasi palauttaa ilmoituksen takaisin näkyviin.

@@ -2,14 +2,29 @@
 
 p Olet ilmoittautunut tähän tapahtumaan valokuvaajana.
 
-.panel.panel-default
-  .panel-heading: strong Valokuvaajailmoituksen tiedot
-  .panel-body
-    - readonly own_photographer_form
-  .panel-footer.clearfix
-    .btn-group.pull-right
-      a.btn.btn-primary(href="{% url 'shoottikala_photographer_view' event.slug own_photographer.id %}") Muokkaa ilmoitusta
-    p.help-block Tämä ilmoitus näkyy parhaillaan cossaajille. Voit halutessasi muokata ilmoitusta tai piilottaa sen.
+if own_photographer.is_active
+  .panel.panel-default
+    .panel-heading: strong Aktiivinen valokuvaajailmoitus
+    .panel-body
+      - readonly own_photographer_form
+    .panel-footer.clearfix
+      form(action='{% url "shoottikala_photographer_view" event.slug own_photographer.id %}' method='POST')
+        {% csrf_token %}
+        .btn-group.pull-right
+          button.btn.btn-danger(type='submit', name='action', value='hide') Piilota ilmoitus
+          a.btn.btn-primary(href="{% url 'shoottikala_photographer_view' event.slug own_photographer.id %}") Muokkaa ilmoitusta
+      p.help-block Tämä valokuvaajailmoitus näkyy parhaillaan cossaajille. Voit halutessasi muokata ilmoitusta tai piilottaa sen.
+else
+  .panel.panel-default
+    .panel-heading: strong.text-muted Piilotettu valokuvaajailmoitus
+    .panel-body.text-muted
+      - readonly own_photographer_form
+    .panel-footer.clearfix
+      form(action='{% url "shoottikala_photographer_view" event.slug own_photographer.id %}' method='POST')
+        {% csrf_token %}
+        .btn-group.pull-right
+          button.btn.btn-default(type='submit', name='action', value='restore') Palauta ilmoitus
+      p.help-block Tämä valokuvaajailmoitus on piilotettu. Voit halutessasi palauttaa sen näkyviin.
 
 if cosplayers_looking.exists
   p Seuraavat cossaajat etsivät parhaillaan valokuvaajaa:

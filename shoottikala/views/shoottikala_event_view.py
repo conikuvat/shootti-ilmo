@@ -16,7 +16,7 @@ def shoottikala_event_view(request, event_slug):
         else:
             own_photographer_form = None
 
-        photographers = Photographer.objects.filter(event=event).exclude(user=request.user)
+        photographers = Photographer.objects.filter(event=event, is_active=True).exclude(user=request.user)
 
         own_cosplayers = Cosplayer.objects.filter(event=event, user=request.user)
         own_cosplayers_with_forms = [(cosplayer, CosplayerForm(instance=cosplayer)) for cosplayer in own_cosplayers]
@@ -31,7 +31,7 @@ def shoottikala_event_view(request, event_slug):
         own_cosplayers = Cosplayer.objects.none()
         own_cosplayers_with_forms = []
         first_own_cosplayer = None
-        cosplayers_looking = Cosplayer.objects.filter(event=event, is_active=True)
+        cosplayers_looking = Cosplayer.objects.none()
 
     is_cosplayer = own_cosplayers.exists()
 
