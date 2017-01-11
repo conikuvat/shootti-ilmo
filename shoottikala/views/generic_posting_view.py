@@ -11,6 +11,8 @@ from ..utils import initialize_form
 def make_posting_view(
     PostingClass,
     PostingFormClass,
+    view_name,
+    allow_multiple_postings,
     create_posting_title,
     edit_posting_title,
     read_only_title,
@@ -24,11 +26,24 @@ def make_posting_view(
     ):
         event = get_object_or_404(Event, slug=event_slug)
 
-        if posting_id is not None:
+        if posting_id is None:
+            # About to create a new posting
+            if not allow_multiple_postings:
+                try:
+                    existing_posting = PostingClass.objects.get(event=event, user=request.user)
+                except PostingClass.DoesNotExist:
+                    pass
+                else:
+                    messages.warning(request, (
+                        'Sinulla on jo ilmoitus tähän tapahtumaan. '
+                        'Sinulla ei voi olla useampia tämäntyyppisiä ilmoituksia.'
+                    ))
+                    return redirect(view_name, event.slug, existing_posting.id)
+
+            posting = PostingClass(event=event, user=request.user, display_name=request.user.display_name)
+        else:
             posting = get_object_or_404(PostingClass, id=int(posting_id))
             posting.check_read_privileges(request.user)
-        else:
-            posting = PostingClass(event=event, user=request.user, display_name=request.user.display_name)
 
         user_form = UserForm(instance=request.user)
 

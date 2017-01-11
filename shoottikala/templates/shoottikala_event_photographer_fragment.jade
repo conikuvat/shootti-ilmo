@@ -1,6 +1,6 @@
 - load shoottikala_tags
 
-p Sinulla on aktiivinen ilmoittautuminen tähän tapahtumaan valokuvaajana. Tämä ilmoitus näkyy parhaillaan cossaajille:
+p Olet ilmoittautunut tähän tapahtumaan valokuvaajana.
 
 .panel.panel-default
   .panel-heading: strong Valokuvaajailmoituksen tiedot
@@ -9,6 +9,7 @@ p Sinulla on aktiivinen ilmoittautuminen tähän tapahtumaan valokuvaajana. Täm
   .panel-footer.clearfix
     .btn-group.pull-right
       a.btn.btn-primary(href="{% url 'shoottikala_photographer_view' event.slug own_photographer.id %}") Muokkaa ilmoitusta
+    p.help-block Tämä ilmoitus näkyy parhaillaan cossaajille. Voit halutessasi muokata ilmoitusta tai piilottaa sen.
 
 if cosplayers_looking.exists
   p Seuraavat cossaajat etsivät parhaillaan valokuvaajaa:

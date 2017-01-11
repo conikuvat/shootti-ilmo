@@ -6,6 +6,8 @@ from .generic_posting_view import make_posting_view
 shoottikala_cosplayer_view = make_posting_view(
     Cosplayer,
     CosplayerForm,
+    view_name='shoottikala_cosplayer_view',
+    allow_multiple_postings=True,
     create_posting_title='Hae photoshoottia cossaajana',
     edit_posting_title='Muokkaa cossaajailmoitustasi',
     read_only_title='Cossaajailmoitus',

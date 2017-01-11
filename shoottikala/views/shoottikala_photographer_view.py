@@ -6,6 +6,8 @@ from .generic_posting_view import make_posting_view
 shoottikala_photographer_view = make_posting_view(
     Photographer,
     PhotographerForm,
+    view_name='shoottikala_photographer_view',
+    allow_multiple_postings=False,
     create_posting_title='Hae photoshoottia valokuvaajana',
     edit_posting_title='Muokkaa valokuvaajailmoitustasi',
     read_only_title='Valokuvaajailmoitus',

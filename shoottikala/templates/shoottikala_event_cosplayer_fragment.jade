@@ -1,6 +1,6 @@
 - load shoottikala_tags
 
-p Sinulla on aktiivinen ilmoittautuminen tähän tapahtumaan cossaajana. Tämä ilmoitus näkyy parhaillaan valokuvaajille:
+p Olet ilmoittautunut tähän tapahtumaan cossaajana.
 
 for cosplayer, cosplayer_form in own_cosplayers_with_forms
   .panel.panel-default
@@ -10,6 +10,7 @@ for cosplayer, cosplayer_form in own_cosplayers_with_forms
     .panel-footer.clearfix
       .btn-group.pull-right
         a.btn.btn-primary(href="{% url 'shoottikala_cosplayer_view' event.slug cosplayer.id %}") Muokkaa ilmoitusta
+      p.help-block Tämä ilmoitus näkyy parhaillaan valokuvaajille. Voit halutessasi muokata ilmoitusta tai piilottaa sen.
 
 if photographers.exists
   p Seuraavat valokuvaajat etsivät parhaillaan cossaajia:
@@ -29,5 +30,7 @@ if photographers.exists
   else
     p Yksikään valokuvaaja ei vielä etsi cossaajia tässä palvelussa. Palaa myöhemmin tarkastamaan tilanne uudelleen!
 
-if not is_photographer
-  p Voit halutessasi ilmoittautua tähän tapahtumaan <a href="{% url 'shoottikala_photographer_create_view' event.slug %}">myös valokuvaajana</a>.
+p
+  | Mikäli sinulla on tapahtumassa useita cosplayasuja, voit tehdä <a href="{% url 'shoottikala_cosplayer_create_view' event.slug %}">lisää cossaajailmoituksia</a>.
+  if not is_photographer
+    |  Lisäksi voit halutessasi ilmoittautua tähän tapahtumaan <a href="{% url 'shoottikala_photographer_create_view' event.slug %}">myös valokuvaajana</a>.
