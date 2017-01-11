@@ -45,7 +45,7 @@ class Photographer(AccessControlMixin, models.Model):
     def get_absolute_url(self):
         return reverse('shoottikala_photographer_view', kwargs=dict(
             event_slug=self.event.slug,
-            photographer_id=self.id,
+            posting_id=self.id,
         ))
 
     def build_absolute_uri(self, request):
