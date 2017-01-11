@@ -25,6 +25,7 @@ def shoottikala_event_view(request, event_slug):
         cosplayers_looking = Cosplayer.objects.filter(event=event, is_active=True).exclude(user=request.user)
     else:
         own_photographer = None
+        is_photographer = False
         own_photographer_form = None
         photographers = Photographer.objects.none()
         own_cosplayers = Cosplayer.objects.none()
