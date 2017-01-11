@@ -20,6 +20,11 @@ block content
   .panel.panel-default
     .panel-heading: strong Cossaaja
     .panel-body
+      if other_own_cosplayers.exists
+        .alert.alert-warning
+          p Sinulla on useita cossaajailmoituksia. Tarkista, että oikea on valittuna. Jos haluat ehdottaa cossia toisella asullasi, valitse se tästä:
+            for other_own_cosplayer in other_own_cosplayers
+              p: strong: a(href="{% url 'shoottikala_send_message_view' event.slug photographer.id other_own_cosplayer.id %}") {{ other_own_cosplayer.display_name }}
       - readonly cosplayer_form
     if can_edit_cosplayer
       .panel-footer.clearfix

@@ -16,6 +16,7 @@ def shoottikala_send_message_view(request, event_slug, photographer_id, cosplaye
     event = get_object_or_404(Event, slug=event_slug)
     photographer = get_object_or_404(Photographer, event=event, id=int(photographer_id))
     cosplayer = get_object_or_404(Cosplayer, event=event, id=int(cosplayer_id))
+    other_own_cosplayers = Cosplayer.objects.filter(event=event, user=request.user).exclude(id=cosplayer.id)
 
     if request.user == photographer.user:
         sender = photographer
@@ -61,14 +62,15 @@ def shoottikala_send_message_view(request, event_slug, photographer_id, cosplaye
             messages.error(request, 'Ole hyvä ja tarkista lomake.')
 
     vars = dict(
-        event=event,
-        photographer=photographer,
-        can_edit_photographer=photographer.user == request.user,
-        cosplayer=cosplayer,
         can_edit_cosplayer=cosplayer.user == request.user,
-        photographer_form=photographer_form,
+        can_edit_photographer=photographer.user == request.user,
         cosplayer_form=cosplayer_form,
+        cosplayer=cosplayer,
+        event=event,
         message_form=message_form,
+        other_own_cosplayers=other_own_cosplayers,
+        photographer_form=photographer_form,
+        photographer=photographer,
     )
 
     return render(request, 'shoottikala_send_message_view.jade', vars)
