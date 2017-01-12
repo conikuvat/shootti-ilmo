@@ -16,14 +16,15 @@ def shoottikala_send_message_view(request, event_slug, photographer_id, cosplaye
     event = get_object_or_404(Event, slug=event_slug)
     photographer = get_object_or_404(Photographer, event=event, id=int(photographer_id))
     cosplayer = get_object_or_404(Cosplayer, event=event, id=int(cosplayer_id))
-    other_own_cosplayers = Cosplayer.objects.filter(event=event, user=request.user).exclude(id=cosplayer.id)
 
     if request.user == photographer.user:
         sender = photographer
         recipient = cosplayer
+        other_own_cosplayers = Cosplayer.objects.none()
     elif request.user == cosplayer.user:
         sender = cosplayer
         recipient = photographer
+        other_own_cosplayers = Cosplayer.objects.filter(event=event, user=request.user).exclude(id=cosplayer.id)
     else:
         raise AccessDenied()
 
