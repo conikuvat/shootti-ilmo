@@ -1,5 +1,7 @@
 # New photoshoot signup system for Desucon & co.
 
+[![Sponsored by Leonidas](https://img.shields.io/badge/sponsored%20by-leonidas-389fc1.svg)](https://leonidasoy.fi/opensource)
+
 The aim of this application is to enable cosplayers and photographers find each other in a convention and facilitate arranging cosplay photoshoots.
 
 ## Getting started
@@ -58,3 +60,5 @@ The `setup` script created a superuser `mahti` with password `mahti`. Use [/admi
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
+
+The work of Santtu Pajukanta on Shoottikala has been partially sponsored by [Leonidas Oy](https://leonidasoy.fi/opensource).
