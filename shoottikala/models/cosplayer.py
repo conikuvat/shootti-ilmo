@@ -8,9 +8,9 @@ from ..privileges import AccessControlMixin
 
 
 SOURCE_TYPE_CHOICES = [
-    ('anime', 'Anime (japanilainen animaatiosarja tai -elokuva)'),
+    ('anime', 'Anime'),
     ('other_anim', 'Muu animaatiosarja'),
-    ('manga', 'Manga (japanilainen sarjakuva)'),
+    ('manga', 'Manga'),
     ('other_comic', 'Muu sarjakuva'),
     ('movie', 'Elokuva'),
     ('series', 'TV-sarja'),
