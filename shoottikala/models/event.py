@@ -34,6 +34,9 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
 
+    class Meta:
+        ordering = ('created_at',)
+
     def __str__(self):
         return self.name
 

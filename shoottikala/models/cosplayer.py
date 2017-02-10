@@ -73,24 +73,36 @@ class Cosplayer(AccessControlMixin, models.Model):
 
     reference_links = models.TextField(
         verbose_name='Referenssikuvalinkit',
-        help_text='Mikäli sinulla on Internetissä referenssikuvia hahmostasi, syötä tähän niiden linkit, yksi per rivi (pelkkä osoite, https://…).',
+        help_text=(
+            'Mikäli sinulla on Internetissä referenssikuvia hahmostasi, syötä tähän niiden linkit, yksi per rivi '
+            '(pelkkä osoite, https://…).'
+        ),
         blank=True,
     )
 
     wip_links = models.TextField(
         verbose_name='WIP-kuvalinkit',
-        help_text='Mikäli sinulla on Internetissä kuvia asustasi keskeneräisenä tai valmiina, syötä tähän niiden linkit, yksi per rivi (pelkkä osoite, https://…).',
+        help_text=(
+            'Mikäli sinulla on Internetissä kuvia asustasi keskeneräisenä tai valmiina, syötä tähän niiden '
+            'linkit, yksi per rivi (pelkkä osoite, https://…).'
+        ),
         blank=True,
     )
 
     social_media_links = models.TextField(
         blank=True,
         verbose_name='Sosiaalisen median linkit',
-        help_text='Jos sinulla on cosplay-profiili esim. Facebookissa tai Twitterissä, syötä niiden osoitteet tähän, yksi per rivi (pelkkä osoite, https://…).',
+        help_text=(
+            'Jos sinulla on cosplay-profiili esim. Facebookissa tai Twitterissä, syötä niiden osoitteet tähän, '
+            'yksi per rivi (pelkkä osoite, https://…).'
+        ),
     )
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
+
+    class Meta:
+        ordering = ('event', 'created_at')
 
     def __str__(self):
         return self.display_name

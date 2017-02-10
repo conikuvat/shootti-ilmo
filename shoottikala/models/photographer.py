@@ -25,19 +25,28 @@ class Photographer(AccessControlMixin, models.Model):
     portfolio_links = models.TextField(
         blank=True,
         verbose_name='Portfolio- ja gallerialinkit',
-        help_text='Jos sinulla on Internetissä portfolio tai kuvagallerioita, syötä niiden osoitteet tähän, yksi per rivi (pelkkä osoite, https://…).',
+        help_text=(
+            'Jos sinulla on Internetissä portfolio tai kuvagallerioita, syötä niiden osoitteet tähän, yksi per '
+            'rivi (pelkkä osoite, https://…).'
+        ),
     )
 
     social_media_links = models.TextField(
         blank=True,
         verbose_name='Sosiaalisen median linkit',
-        help_text='Jos sinulla on kuvaajaprofiili esim. Facebookissa tai Twitterissä, syötä niiden osoitteet tähän, yksi per rivi (pelkkä osoite, https://…).',
+        help_text=(
+            'Jos sinulla on kuvaajaprofiili esim. Facebookissa tai Twitterissä, syötä niiden osoitteet tähän, '
+            'yksi per rivi (pelkkä osoite, https://…).'
+        ),
     )
 
     is_active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
+
+    class Meta:
+        ordering = ('event', 'created_at')
 
     def __str__(self):
         return self.display_name
