@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 
 from django.contrib import admin
 
+import feedback.urls
 import kompassi_oauth2.urls
 
 from .views import (
@@ -59,5 +60,6 @@ urlpatterns = [
     ),
 
     url(r'', include(kompassi_oauth2.urls)),
+    url(r'', include(feedback.urls)),
     url(r'^admin/', include(admin.site.urls)),
 ]

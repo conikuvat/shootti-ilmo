@@ -1,0 +1,36 @@
+#: templates/feedback_widget.jade
+msgid "Feedback privacy policy…"
+msgstr "Tietoa palautteen käsittelystä…"
+
+#: templates/feedback_widget.jade
+msgid "Give feedback"
+msgstr "Anna palautetta"
+
+#: models/feedback_message.py
+msgid "IP address"
+msgstr "IP-osoite"
+
+#: templates/feedback_widget.jade
+msgid "Send feedback"
+msgstr "Lähetä palaute"
+
+#: templates/feedback_widget.jade
+msgid "Thank you for your feedback!"
+msgstr "Kiitos palautteestasi!"
+
+#: forms.py
+msgid "Your feedback"
+msgstr "Palautteesi"
+
+#: apps.py models/feedback_message.py
+msgid "feedback"
+msgstr "palaute"
+
+#: models/feedback_message.py
+msgid "feedback message"
+msgstr "palaute"
+
+#: models/feedback_message.py
+msgid "feedback messages"
+msgstr "palautteet"
+

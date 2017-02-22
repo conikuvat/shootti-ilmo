@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'safespace',
 
     'kompassi_oauth2',
+    'event_log',
+    'feedback',
     'shoottikala',
 )
 
@@ -76,6 +78,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'shoottikala.context_processors.shoottikala_context',
+                'feedback.context_processors.feedback_context',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.debug',
@@ -116,6 +119,7 @@ AUTH_USER_MODEL = 'kompassi_oauth2.User'
 SHOOTTIKALA_DEFAULT_EVENT = env('SHOOTTIKALA_DEFAULT_EVENT', default='frostbite2017')
 SHOOTTIKALA_APPLICATION_NAME = 'Photoshoot-ilmoittautuminen'
 SHOOTTIKALA_PRIVACY_POLICY_URL = 'https://ry.tracon.fi/tietosuoja/rekisteriselosteet/shoottikala'
+FEEDBACK_PRIVACY_POLICY_URL = 'https://ry.tracon.fi/tietosuoja/rekisteriselosteet/kompassi-palaute'
 
 KOMPASSI_INSTALLATION_SLUG = env('KOMPASSI_INSTALLATION_SLUG', default='turska')
 KOMPASSI_HOST = env('KOMPASSI_HOST', default='https://kompassi.eu')

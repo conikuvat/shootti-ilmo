@@ -6,3 +6,4 @@ pyjade~=4.0.0
 requests-oauthlib~=0.7.0
 django-crispy-forms~=1.6.1
 django-safespace~=0.2.0
+django-ipware>=1.1,<1.2

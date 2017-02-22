@@ -1,0 +1,39 @@
+- load crispy_forms_tags
+
+.panel-group#kompassi-feedback-widget
+  .panel.panel-default
+    .panel-heading(data-toggle='collapse',
+                   data-target='#kompassi-feedback-widget-collapse',
+                   role='button',
+                   aria-expanded='false',
+                   aria-controls='kompassi-feedback-widget-collapse')
+      strong Anna palautetta
+    .panel-collapse.collapse#kompassi-feedback-widget-collapse
+      .panel-body
+        form(onsubmit='sendKompassiFeedback(event);')#kompassi-feedback-widget-form
+          {% crispy feedback_form %}
+
+          .btn-group.pull-right
+            button.btn.btn-primary(type='submit')
+              i.fa.fa-floppy-o
+              | Lähetä palaute
+
+          p.help-block
+            a(href='{{ settings.FEEDBACK_PRIVACY_POLICY_URL }}', target='_blank') Tietoa palautteen käsittelystä…
+
+script.
+  function sendKompassiFeedback(event) {
+    event.preventDefault();
+
+    var $form = $('#kompassi-feedback-widget-form');
+
+    $.ajax({
+      type: 'POST',
+      url: '{% url "feedback_view" %}',
+      data: $form.serialize()
+    }).then(function() {
+      alert("Kiitos palautteestasi!");
+      $form[0].reset();
+      $('#kompassi-feedback-widget-collapse').collapse('hide');
+    });
+  }
