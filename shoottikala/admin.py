@@ -13,8 +13,8 @@ class CosplayerAdmin(admin.ModelAdmin):
 
 
 class PhotographerAdmin(admin.ModelAdmin):
-    list_display = ('event', 'display_name', 'is_active')
-    list_filter = ('event', 'is_active')
+    list_display = ('event', 'display_name', 'is_official', 'is_active')
+    list_filter = ('event', 'is_active', 'is_official')
 
 
 admin.site.register(Cosplayer, CosplayerAdmin)

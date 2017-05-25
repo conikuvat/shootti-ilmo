@@ -50,6 +50,7 @@ class Photographer(AccessControlMixin, models.Model):
         related_name='+',
     )
 
+    is_official = models.BooleanField(default=False, verbose_name='Tapahtuman virallinen valokuvaaja')
     is_active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))

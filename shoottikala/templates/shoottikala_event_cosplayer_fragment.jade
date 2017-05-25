@@ -41,11 +41,15 @@ if photographers.exists
       tbody
         for photographer in photographers
           tr
-            td: a(href="{% url 'shoottikala_send_message_view' event.slug photographer.id first_own_cosplayer.id %}") {{ photographer.display_name }}
+            td: a(href="{% url 'shoottikala_send_message_view' event.slug photographer.id first_own_cosplayer.id %}")
+              | {{ photographer.display_name }}
+              if photographer.is_official
+                | 
+                i.fa.fa-check-circle(title='Tapahtuman virallinen valokuvaaja')
             - with photographer as signup
               include shoottikala_days_table_row_fragment.jade
     .panel-footer
-      p.help-block {{ photographers.count }} valokuvaaja{{ photographers.count|pluralize:"a" }}.
+      p.help-block {{ photographers.count }} valokuvaaja{{ photographers.count|pluralize:"a" }}. Merkistä <i class="fa fa-check-circle"></i> tunnistat tapahtuman viralliset valokuvaajat.
   else
     p Yksikään valokuvaaja ei vielä etsi cossaajia tässä palvelussa. Palaa myöhemmin tarkastamaan tilanne uudelleen!
 
