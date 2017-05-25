@@ -5,7 +5,7 @@ from django.core.mail import EmailMessage
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
 
-from ..models import Event, Photographer, Cosplayer
+from ..models import Event, Photographer, Cosplayer, Message
 from ..forms import PhotographerForm, CosplayerForm, MessageForm
 from ..utils import initialize_form
 from ..exceptions import AccessDenied
@@ -19,10 +19,12 @@ def shoottikala_send_message_view(request, event_slug, photographer_id, cosplaye
 
     if request.user == photographer.user:
         sender = photographer
+        initiated_by = 'p'
         recipient = cosplayer
         other_own_cosplayers = Cosplayer.objects.none()
     elif request.user == cosplayer.user:
         sender = cosplayer
+        initiated_by = 'c'
         recipient = photographer
         other_own_cosplayers = Cosplayer.objects.filter(event=event, user=request.user).exclude(id=cosplayer.id)
     else:
@@ -55,6 +57,12 @@ def shoottikala_send_message_view(request, event_slug, photographer_id, cosplaye
                 to=[recipient.user.email],
                 reply_to=[sender.user.email],
             ).send()
+
+            Message(
+                cosplayer=cosplayer,
+                photographer=photographer,
+                initiated_by=initiated_by,
+            ).save()
 
             messages.success(request, 'Viesti lähetettiin.')
 
