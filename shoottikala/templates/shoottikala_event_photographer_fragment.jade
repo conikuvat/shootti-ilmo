@@ -38,6 +38,7 @@ if cosplayers_looking.exists
           th Hahmo tai hahmot
           th Lähde
           th Lähteen tyyppi
+          include shoottikala_days_header_fragment.jade
       tbody
         for cosplayer in cosplayers_looking
           tr
@@ -45,6 +46,8 @@ if cosplayers_looking.exists
             td {{ cosplayer.character }}
             td {{ cosplayer.source }}
             td {{ cosplayer.get_source_type_display }}
+            - with cosplayer as signup
+              include shoottikala_days_table_row_fragment.jade
     .panel-footer
       p.help-block {{ cosplayers_looking.count }} cossaaja{{ cosplayers_looking.count|pluralize:"a" }}.
   else

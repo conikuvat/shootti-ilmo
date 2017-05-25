@@ -1,8 +1,8 @@
+from random import random
+
 from django.utils.timezone import now
 
 from crispy_forms.helper import FormHelper
-
-from .exceptions import AccessDenied
 
 
 def log_get_or_create(logger, obj, created):
@@ -39,3 +39,13 @@ def initialize_form(FormClass, request, **kwargs):
         form = FormClass(**kwargs)
 
     return form
+
+
+def get_expanded_days(self):
+    available_days = set(self.days.all())
+    return [(day, day in available_days) for day in self.event.days.all()]
+
+
+def get_random_days(p=0.6):
+    from .models import Day
+    return [day for day in Day.objects.all() if random() < p]

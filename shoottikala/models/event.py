@@ -74,3 +74,11 @@ class Event(models.Model):
 
         self.organization_name = kompassi_event['organization']['name']
         self.organization_url = kompassi_event['organization']['homepage_url']
+
+    @property
+    def days(self):
+        """
+        Future-proofing: Allow turning this into a database field
+        """
+        from .day import Day
+        return Day.objects.all()

@@ -8,6 +8,7 @@ from django.core.management.base import BaseCommand
 from django.db.transaction import atomic
 
 from ...utils import log_get_or_create
+from ...models import Day
 
 
 logger = logging.getLogger(__name__)
@@ -50,3 +51,5 @@ class Command(BaseCommand):
                 user.save()
 
             log_get_or_create(logger, user, created)
+
+        Day.ensure_days_exist()

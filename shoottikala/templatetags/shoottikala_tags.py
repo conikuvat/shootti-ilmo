@@ -1,4 +1,5 @@
 from django import template
+from django.db.models import QuerySet
 
 
 register = template.Library()
@@ -8,7 +9,9 @@ def get_value(form, field_name):
     field = form.fields[field_name]
     value = form.initial[field_name]
 
-    if getattr(field, 'choices', None):
+    if isinstance(value, QuerySet):
+        return ', '.join(str(item) for item in value.all())
+    elif getattr(field, 'choices', None):
         return dict(field.choices).get(value, value)
     else:
         return value

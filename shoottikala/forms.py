@@ -18,6 +18,10 @@ class PhotographerForm(forms.ModelForm):
             'introduction',
             'portfolio_links',
             'social_media_links',
+            'days',
+        )
+        widgets = dict(
+            days=forms.CheckboxSelectMultiple,
         )
 
 
@@ -40,6 +44,10 @@ class CosplayerForm(forms.ModelForm):
             'reference_links',
             'wip_links',
             'social_media_links',
+            'days',
+        )
+        widgets = dict(
+            days=forms.CheckboxSelectMultiple,
         )
 
 

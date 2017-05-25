@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 
 from ..privileges import AccessControlMixin
+from ..utils import get_random_days
 
 
 SOURCE_TYPE_CHOICES = [
@@ -98,6 +99,14 @@ class Cosplayer(AccessControlMixin, models.Model):
         ),
     )
 
+    days = models.ManyToManyField(
+        'shoottikala.Day',
+        verbose_name='Tapahtumapäivät',
+        help_text='Ruksaa tästä, mille tapahtumapäiville etsit shoottia tässä asussa.',
+        blank=True,
+        related_name='+',
+    )
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_('updated at'))
 
@@ -112,6 +121,8 @@ class Cosplayer(AccessControlMixin, models.Model):
             event_slug=self.event.slug,
             posting_id=self.id,
         ))
+
+    from ..utils import get_expanded_days
 
     def build_absolute_uri(self, request):
         return request.build_absolute_uri(self.get_absolute_url())
@@ -135,7 +146,7 @@ class Cosplayer(AccessControlMixin, models.Model):
             User = get_user_model()
             user, unused = User.get_or_create_dummy()
 
-        return cls.objects.get_or_create(
+        cosplayer, created = cls.objects.get_or_create(
             event=event,
             user=user,
             defaults=dict(
@@ -145,3 +156,9 @@ class Cosplayer(AccessControlMixin, models.Model):
                 character='Dummy',
             ),
         )
+
+        if created:
+            cosplayer.days = get_random_days()
+            cosplayer.save()
+
+        return cosplayer, created

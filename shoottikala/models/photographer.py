@@ -1,9 +1,11 @@
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-from django.core.urlresolvers import reverse
 
 from ..privileges import AccessControlMixin
+from ..utils import get_random_days
 
 
 class Photographer(AccessControlMixin, models.Model):
@@ -40,6 +42,14 @@ class Photographer(AccessControlMixin, models.Model):
         ),
     )
 
+    days = models.ManyToManyField(
+        'shoottikala.Day',
+        verbose_name='Tapahtumapäivät',
+        help_text='Ruksaa tästä, minä tapahtumapäivinä olet käytettävissä photoshooteille.',
+        blank=True,
+        related_name='+',
+    )
+
     is_active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
@@ -47,6 +57,9 @@ class Photographer(AccessControlMixin, models.Model):
 
     class Meta:
         ordering = ('event', 'created_at')
+        unique_together = [
+            ('event', 'user'),
+        ]
 
     def __str__(self):
         return self.display_name
@@ -56,6 +69,8 @@ class Photographer(AccessControlMixin, models.Model):
             event_slug=self.event.slug,
             posting_id=self.id,
         ))
+
+    from ..utils import get_expanded_days
 
     def build_absolute_uri(self, request):
         return request.build_absolute_uri(self.get_absolute_url())
@@ -79,7 +94,7 @@ class Photographer(AccessControlMixin, models.Model):
             User = get_user_model()
             user, unused = User.get_or_create_dummy()
 
-        return cls.objects.get_or_create(
+        photographer, created = cls.objects.get_or_create(
             event=event,
             user=user,
             defaults=dict(
@@ -88,7 +103,8 @@ class Photographer(AccessControlMixin, models.Model):
             ),
         )
 
-    class Meta:
-        unique_together = [
-            ('event', 'user'),
-        ]
+        if created:
+            photographer.days = get_random_days()
+            photographer.save()
+
+        return photographer, created
