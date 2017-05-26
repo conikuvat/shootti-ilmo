@@ -133,7 +133,7 @@ class Cosplayer(AccessControlMixin, models.Model):
         return (
             user.is_superuser or
             self.user == user or
-            Photographer.objects.filter(event=self.event, user=self.user).exists()
+            Photographer.objects.filter(event=self.event, user=user).exists()
         )
 
     @classmethod
